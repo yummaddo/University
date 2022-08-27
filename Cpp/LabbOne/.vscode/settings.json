@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "xstring": "cpp",
+        "list": "cpp",
+        "initializer_list": "cpp",
+        "xutility": "cpp",
+        "iterator": "cpp",
+        "utility": "cpp"
+    }
+}

@@ -1,0 +1,123 @@
+/* Import Fonts */
+@import url(http://fonts.googleapis.com/css?family=Coustard|Open+Sans);
+
+
+div#wrapperHeader {
+	width:100%;
+	height:200px; /* height of the background image? */
+	background:url(/images/header.jpg) repeat-x 0 0;
+	text-align:center;
+}
+
+div#wrapperHeader div#header {
+	width: 1200px;;
+	height:120px;
+}
+
+div#wrapperHeader div#header img {
+	width: 50px;; /* the width of the logo image */
+	height: 50px;; /* the height of the logo image */
+}
+
+
+
+
+
+.information{
+	color: #020202;
+	font-family: 'Bradley Hand', cursive;
+	font-size: 16px;
+	line-height: 21px;
+	font-weight:400;
+	-webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+.windowcut {
+	padding-top: 8%;
+	padding-bottom: 8%;
+}
+.left{
+	margin-left: 4%;
+	padding-left: 6%;
+	margin-right: 60%;
+	text-align: left;
+}
+.right{
+	margin-left: 60%;
+	margin-right: 4%;
+	padding-right: 6%;
+	text-align: right;
+
+}
+
+.responsive {
+    width: 100%;
+	max-width: 400px;
+    height: auto;
+}
+
+
+.imgPool{
+	position: absolute;
+	z-index: 2; /* помещаем .green-box поверх .dashed-box */
+}
+
+.liner {
+	display: inline-block;
+}
+
+
+.atriclePool{
+	border-top: 15%;
+	opacity: 0.7;
+}
+
+
+
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	/* line-height: 21px; */
+	font-weight:400;
+	-webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+	color: #777;
+	background: #3A4353;
+}
+h1, h2, h3, h4, h5, h6{
+	font-family: 'Coustard', serif;
+	color:#fff;
+	font-weight: normal;
+	letter-spacing: 1px;
+}
+h1{font-size: 63px; line-height: 70px; padding: 0; margin: 0;}
+h5{font-size: 28px; line-height: 35px; padding: 0; margin: 0; color: #b7b7b7;}
+
+a {
+	color: #b7b7b7;
+	text-decoration:none;
+	font-weight: normal;
+}
+a:hover {text-decoration:underline;}
+
+
+
+.show{display: block;}
+.hide{opacity: 0;}
+
+
+
+#logo {
+	font-family: 'Coustard', serif;
+	font-size: 49px;
+	bottom:40px;
+	height:auto;
+	left:40px;
+	position:absolute;
+	width:20%;
+	z-index:1000;
+	color: #fff;
+}
+
