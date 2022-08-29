@@ -3,9 +3,14 @@
 #include <string>
 #include <list>
 
-
 using namespace std;
 
+
+int SQLITE_RUN_SIZE = -1;
+
+static int Callback(void *data, int argc, char **argv, char **azColName) {
+   return 0;
+};
 
 class Person  
 {
@@ -32,6 +37,8 @@ class DataBase{
       DataBase(){
          //admin infor
          Person tmp1 = Person("Administrator","12345678");
+
+
          persons.push_back(tmp1);
 
       }
@@ -112,20 +119,16 @@ class DataBase{
 
       bool isTrueLogin(string login, Person curent_person){
          if(login==curent_person.loggin){
-            cout << login << " == " << curent_person.loggin << " true login "<< endl;
             return true;
          } else {
-            cout << login << " == " << curent_person.loggin << " false login "<< endl;
             return false;
          }
       }
 
       bool isTruePassword(string pasword, Person curent_person){
          if (pasword==curent_person.password){
-            cout << pasword << " == " << curent_person.password << " true password "<< endl;
             return true;
          } else {
-            cout << pasword << " == " << curent_person.password << " false password "<< endl;
             return false;
          }
       }
@@ -139,6 +142,7 @@ static int UpdateCallback(void *data, int argc, char **argv, char **azColName){
 
 class InputModel {
    public:
+      int isLogin = -1;
       void StartSesion(){
          CurentLogin=GetLogin();
          CurentPassword=GetPassword();
@@ -155,6 +159,36 @@ class InputModel {
          return Person(CurentLogin,CurentPassword);
       }
 
+      void EnteredAccount(){
+         cout << "[     log     ] Enter into acaunt" << endl;
+      }
+
+      bool StartMenu(sqlite3 *db){
+         string ansv;
+         cout << "[     log     ] Welcome in main menu" << endl;
+         cout << "[     log     ] You can execute several commands  by entering thair name or number" << endl;
+         cout << "[     log     ] ----  suggested list ----" << endl;
+         cout << "[     log     ] 1-register  :: create a new account " << endl;
+         cout << "[     log     ] 2-login     :: login a new accout " << endl;
+         cout << "[     log     ] 3-exit      :: login a new accout " << endl;
+         do{
+            cout << "[    enter    ] command name or index: ";
+            cin >> ansv;
+            if (ansv == string("register") || ansv == string("1")){
+               Register(db);
+               isLogin=2;
+               break;
+            } else if (ansv == string("login") || ansv == string("2")){
+               isLogin=1;
+               break;
+            } else if (ansv == string("exit") || ansv == string("3")){
+               break;
+            } else {
+               cout << "[     log     ] Coomand not found " << endl;
+            }
+         } while (ansv != string("exit") || ansv != string("3"));
+         return isLogin;
+      } 
 
    private:
       string CurentLogin;
@@ -163,6 +197,20 @@ class InputModel {
       // funcks()
       string GetPassword();
       string GetLogin();
+      void Register(sqlite3 *db){
+         char *zErrMsg = 0;
+         const char* data = "";
+         int rc;
+         string new_login = GetLogin();
+         string new_password = GetPassword();
+         string SQL_REGISTER = string("INSERT INTO \'persons\'(\'name\',\'password\') VALUES (\'") + new_login +string("\',\'") + new_password +string("\')");
+         rc = sqlite3_exec(db, SQL_REGISTER.c_str(), Callback, (void*)data, &zErrMsg);
+         if ( rc != SQLITE_OK ){
+            cout << "{sqlite3 log} SQL error: " << zErrMsg << endl;
+         } else {
+            cout << "{sqlite3 log} New person acount has created successfully" << endl;
+         }
+      }
 };
 
 
@@ -270,7 +318,7 @@ class AdminSesion{
          cout << "[     log     ] 1 - print_all             :: viev information about all person in data base " << endl;
          cout << "[     log     ] 2 - set_name_by_index     :: seted name of person by index " << endl;
          cout << "[     log     ] 3 - set_password_by_index :: seted password of person by index " << endl;
-         cout << "[     log     ] 4 - exit :: exit program " << endl;
+         cout << "[     log     ] 4 - exit                  :: exit program " << endl;
          
          
          do{
@@ -352,11 +400,17 @@ static int AddInHash(void *data, int argc, char **argv, char **azColName) {
       }
    }
    return 0;
-}
+};
 
-static int Callback(void *data, int argc, char **argv, char **azColName) {
+static int SizeCallback(void *data, int argc, char **argv, char **azColName) {
+   if (string(argv[0]) == string("0")){
+      SQLITE_RUN_SIZE = 1;
+   } else {
+      SQLITE_RUN_SIZE = 0;
+   }
    return 0;
-}
+};
+
 
 int main(void) {
    int try_numbers = 0;
@@ -366,6 +420,8 @@ int main(void) {
    char *sql;
    const char* data = "";
    const char* SQL_SELECT = "SELECT * FROM persons";
+   const char* SQL_COUNT = "SELECT COUNT(*) FROM persons";
+   const char* SQL_INSERT = "INSERT INTO \'persons\'(\'name\',\'password\') VALUES (\'def1\',\'pass\'),(\'def2\',\'pass\')";
    const char* SQL = "CREATE TABLE IF NOT EXISTS persons (\'id\' INTEGER NOT NULL,\'name\' TEXT,\'password\' TEXT, PRIMARY KEY(\'id\' AUTOINCREMENT))";
 
    // connection to db and get ( 1-has connected 2-table created or exist 3-information that will be add in hash )
@@ -383,37 +439,60 @@ int main(void) {
    } else {
       cout << "{sqlite3 log} Table created or connected successfully" << endl;
    }
+
+
+   rc = sqlite3_exec(db, SQL_COUNT, SizeCallback, (void*)data, &zErrMsg);
+   if ( rc != SQLITE_OK ){
+      cout << "{sqlite3 log} SQL error: " << zErrMsg << endl;
+   }
+
+   if (SQLITE_RUN_SIZE == 1 && rc == SQLITE_OK){
+      rc = sqlite3_exec(db, SQL_INSERT, Callback, (void*)data, &zErrMsg);
+      if ( rc != SQLITE_OK ){
+         cout << "{sqlite3 log} SQL error: " << zErrMsg << endl;
+      } else {
+         cout << "{sqlite3 log} Defult users load successfully" << endl;
+      }
+   }
+
+
+
    // thid 
-   rc = sqlite3_exec(db,SQL_SELECT,AddInHash, (void*)data,&zErrMsg);
+   rc = sqlite3_exec(db,SQL_SELECT, AddInHash, (void*)data,&zErrMsg);
    if ( rc != SQLITE_OK ){
       cout << "{sqlite3 log} SQL error: " << zErrMsg << endl;
    } else {
       cout << "{sqlite3 log} Inforamation load successfully" << endl;
    }
 
-   do {
-      sesion.StartSesion();
-      try_numbers++;
-   } while ( !process.Identifie(sesion.GetPerson()) && try_numbers < 3 );
-   
-   if (!process.GetStatus()){
-      if (process.log_errors == 3 && process.pas_errors != 3){
-         cout << "[     log     ] End session" << endl;
 
-      } else if (process.pas_errors == 3 && process.log_errors){
-         cout << "[     log     ] Unauthorized access attempt" << endl;
+   int result = sesion.StartMenu(db);
 
+   if (result == 1){
+      do {
+         sesion.StartSesion();
+         try_numbers++;
+      } while ( !process.Identifie(sesion.GetPerson()) && try_numbers < 3 );
+      
+      if (!process.GetStatus()){
+         if (process.log_errors == 3 && process.pas_errors != 3){
+            cout << "[     log     ] End session" << endl;
+
+         } else if (process.pas_errors == 3 && process.log_errors){
+            cout << "[     log     ] Unauthorized access attempt" << endl;
+
+         }
+      } else {
+         if (sesion.GetPerson().loggin == "Administrator"){
+            AdminSesion sub_process = AdminSesion(db);
+         } else {
+            sesion.EnteredAccount();
+         }
       }
    } else {
-      if (sesion.GetPerson().loggin == "Administrator"){
-         AdminSesion sub_process = AdminSesion(db);
-      } else {
-         cout << "[     log     ] Enter into acaunt" << endl;
-      }
-
-
-
+      sesion.EnteredAccount();
    }
+
 
 
    // closed connection with db
