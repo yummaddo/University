@@ -6,9 +6,6 @@
 
 using namespace std;
 
- 
-const char* SQL = "CREATE TABLE IF NOT EXISTS persons (\'id\' INTEGER NOT NULL,\'name\' TEXT,\'password\' TEXT, PRIMARY KEY(\'id\' AUTOINCREMENT))";
-
 
 class Person  
 {
@@ -25,35 +22,30 @@ class Person
       }
       void SetPassword(string Password){
          password = Password;
-
       }
 };
-
-
-static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
-   int i;
-   for(i = 0; i<argc; i++) {
-      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-   }
-   printf("\n");
-   return 0;
-}
-
-
 
 
 class DataBase{
    public:
 
       DataBase(){
-         Person tmp1 = Person("admin","admin");
-         Person tmp2 = Person("user1","pass");
-
+         //admin infor
+         Person tmp1 = Person("Administrator","12345678");
          persons.push_back(tmp1);
-         persons.push_back(tmp2);
+
+      }
+
+      void print_data(){
+         int index = 0;
+         for (auto i = persons.begin(); i != persons.end(); i++){
+            print_person(*i,index);
+            index++;
+         }
       }
 
       pair<bool,bool> FindPerson(Person entered_person){
+         // print_data();
          string log = entered_person.loggin;
          string pas = entered_person.password;
          bool is_loggins;
@@ -61,48 +53,88 @@ class DataBase{
          // getting data -------------
 
          //---------------------------
+         pair<bool,bool> res = pair<bool,bool>(false,false);
 
          for (auto i = persons.begin(); i != persons.end(); i++){
             is_loggins = isTrueLogin(log,*i);
+            is_password = isTruePassword(pas,*i);
+            
             if (is_loggins){
                // cout << is_loggins << " " << is_password << endl;
-               is_password = isTruePassword(pas,*i);
                if (is_password) {
-                  return pair<bool,bool>(true,true);
+                  return  pair<bool,bool>(true,true);
 
                }else {
-                  return pair<bool,bool>(true,false);
+                  res =  pair<bool,bool>(true,false);
                }
             } else {
-               return pair<bool,bool>(false,false);
+               if (!res.first){
+                  res =  pair<bool,bool>(false,false);
+               }
             }
          }
-         return pair<bool,bool>(is_loggins,is_password);
+         return res;
       }
 
       void AddPerson(Person inf){
          persons.push_back(inf);
       } 
 
+      Person SetByIndex(int index, string element, string prefix){
+         int iter = 0;
+
+         for (auto i = persons.begin(); i != persons.end(); i++){
+            if (iter==index){
+               Person temp = *i;
+               if (prefix == "name"){
+                  temp.SetLogin(element);
+                  *i = temp;
+                  
+               } else if (prefix == "pass"){
+                  temp.SetPassword(element);
+                  *i = temp;
+
+               }
+               return *i;
+            } //first item we ignored becose this is admin
+            i++;iter++;
+         }
+      }
+
    private:
       list<Person> persons;
 
+      void print_person(Person inf, int index){
+         if (inf.loggin != "Administrator"){
+            cout << "[" << index << "] " << inf.loggin << " " << inf.password << endl;
+         }
+      }
+
       bool isTrueLogin(string login, Person curent_person){
          if(login==curent_person.loggin){
+            cout << login << " == " << curent_person.loggin << " true login "<< endl;
             return true;
          } else {
+            cout << login << " == " << curent_person.loggin << " false login "<< endl;
             return false;
          }
       }
 
       bool isTruePassword(string pasword, Person curent_person){
          if (pasword==curent_person.password){
+            cout << pasword << " == " << curent_person.password << " true password "<< endl;
             return true;
          } else {
+            cout << pasword << " == " << curent_person.password << " false password "<< endl;
             return false;
          }
       }
 };
+
+
+static int UpdateCallback(void *data, int argc, char **argv, char **azColName){
+   return 0;
+}
 
 
 class InputModel {
@@ -120,7 +152,7 @@ class InputModel {
          return number_of_try;
       }
       Person GetPerson(){
-         return Person(CurentLogin,CurentLogin);
+         return Person(CurentLogin,CurentPassword);
       }
 
 
@@ -164,7 +196,7 @@ class Identifier {
             isFirstRun = false;
             if (result.first == true){
                if (result.second == true){
-                  status=true;
+                  status = true;
 
                } else {
                   cout << "[ input fatal ] wrong login!" << endl;
@@ -176,7 +208,7 @@ class Identifier {
                log_errors++;
             }
          } else {
-            if (result.first == true && hash_person.loggin == inputed_person.loggin){
+            if (result.first == true){
                if (result.second == true){
                   status=true;
                } else {
@@ -197,10 +229,21 @@ class Identifier {
 
       }
 
+      void AddPersonInHash(Person inf){
+         data.AddPerson(inf);
+      }
+
       bool GetStatus(){
          return status;
       }
 
+      void VievDataInformation(){
+         data.print_data();
+      }
+
+      Person SetByIndex(int index,string element, string prefix){
+         return data.SetByIndex(index,element,prefix);
+      }
 
    private:
       DataBase data = DataBase();
@@ -209,37 +252,149 @@ class Identifier {
 };
 
 
-int main(void) {
-   string stop;
-   InputModel sesion;
-   Identifier process;
+ // global visible
+InputModel sesion;
+Identifier process;
 
+class AdminSesion{
+   char *zErrMsg = 0;
+   int rc;
+   char *sql;
+   const char* data = "";
+   public:
+      AdminSesion(sqlite3 *db){
+         string com;
+         cout << "[     log     ] Welcome in administrator panel" << endl;
+         cout << "[     log     ] You can execute several commands  by entering thair name or number" << endl;
+         cout << "[     log     ] ----  suggested list ----" << endl;
+         cout << "[     log     ] 1 - print_all             :: viev information about all person in data base " << endl;
+         cout << "[     log     ] 2 - set_name_by_index     :: seted name of person by index " << endl;
+         cout << "[     log     ] 3 - set_password_by_index :: seted password of person by index " << endl;
+         cout << "[     log     ] 4 - exit :: exit program " << endl;
+         
+         
+         do{
+
+            cout << "[    enter    ] command name or index: ";
+
+            cin >> com;
+            if (com == "1" || com == "print_all"){
+               process.VievDataInformation();
+            } else if (com == "2" || com == "set_name_by_index") {
+                int index;
+                cout << "[    enter    ] index: ";
+                cin >> index;
+                set_name_by_index(index,db);            
+
+            } else if (com == "3" || com == "set_password_by_index"){
+                int index;
+                cout << "[    enter    ] index: ";
+                cin >> index;
+                set_password_by_index(index,db);  
+
+            } else if (com == "4" || com == "exit"){
+               break;
+            } else {
+               cout << "[     log     ] Coomand not found " << endl;
+            }
+         }
+         while (com != "exit");
+      }
+   private:
+      Person SetByIndex(int index,string element, string prefix){
+         return process.SetByIndex(index,element,prefix);
+      }
+
+      void set_data_base_information(Person inf, string prefix,int index, sqlite3 *db){
+         
+         string name_sql = string("UPDATE persons SET name=\'") + inf.loggin + string("\' WHERE id=\'") + to_string(index-1) + string("\';");
+         string password_sql = string("UPDATE persons SET password=\'") + inf.password + string("\' WHERE id=\'") + to_string(index-1) + string("\';");
+         if (prefix == "name"){
+            cout << "[     log     ]  " << name_sql << endl;
+            cout << "[     log     ]  " << inf.loggin << " " << inf.password << endl;
+            rc = sqlite3_exec(db,name_sql.c_str(),UpdateCallback,0,&zErrMsg);
+         } else if (prefix == "pass"){
+            cout << "[     log     ] " << password_sql << endl;
+            cout << "[     log     ]  " << inf.loggin << " " << inf.password << endl;
+            rc = sqlite3_exec(db,password_sql.c_str(),UpdateCallback,0,&zErrMsg);
+         }
+         if ( rc != SQLITE_OK ){
+            cout << "{sqlite3 log} SQL error: " << zErrMsg << endl;
+         } else {
+            cout << "{sqlite3 log} Update successfully" << endl;
+         }
+      }
+
+      void set_name_by_index(int index, sqlite3 *db){
+         string new_name;
+         cout << "[    enter    ] new login: ";
+         cin >> new_name;
+         Person person_inf = SetByIndex(index,new_name,"name");
+         set_data_base_information(person_inf, "name", index, db);
+      }
+
+      void set_password_by_index(int index,sqlite3 *db){
+         string new_password;
+         cout << "[    enter    ] new password: ";
+         cin >> new_password;
+         Person person_inf = SetByIndex(index,new_password,"pass"); 
+         set_data_base_information(person_inf, "pass", index, db);
+      }
+};
+
+static int AddInHash(void *data, int argc, char **argv, char **azColName) {
+   string name,password;
+   for (int i =0; i < argc;i+=3){
+      if (argv) {
+         name = (string)argv[i+1];
+         password = (string)argv[i+2];
+         process.AddPersonInHash(Person(name,password));     
+      }
+   }
+   return 0;
+}
+
+static int Callback(void *data, int argc, char **argv, char **azColName) {
+   return 0;
+}
+
+int main(void) {
+   int try_numbers = 0;
    sqlite3 *db;
    char *zErrMsg = 0;
    int rc;
    char *sql;
+   const char* data = "";
+   const char* SQL_SELECT = "SELECT * FROM persons";
+   const char* SQL = "CREATE TABLE IF NOT EXISTS persons (\'id\' INTEGER NOT NULL,\'name\' TEXT,\'password\' TEXT, PRIMARY KEY(\'id\' AUTOINCREMENT))";
 
+   // connection to db and get ( 1-has connected 2-table created or exist 3-information that will be add in hash )
+   
+   // first step
    if (sqlite3_open("test.db",&db)){
-      cout << "Can't open database: " << sqlite3_errmsg(db) << endl;
+      cout << "{sqlite3 log} Can't open database: " << sqlite3_errmsg(db) << endl;
    } else {
-      cout << "Opened database successfully " << endl;
+      cout << "{sqlite3 log} Opened database successfully " << endl;
    }
-
-   rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-   sqlite3_close(db);
-
-   // if ( rc != SQLITE_OK ){
-   //    cout << "SQL error: " << zErrMsg << endl;
-   // } else {
-   //    cout << "Table created successfully\n" << endl;
-   // }
-
-
-
+   // second 
+   rc = sqlite3_exec(db, SQL,Callback, 0, &zErrMsg);
+   if ( rc != SQLITE_OK ){
+      cout << "{sqlite3 log} SQL error: " << zErrMsg << endl;
+   } else {
+      cout << "{sqlite3 log} Table created or connected successfully" << endl;
+   }
+   // thid 
+   rc = sqlite3_exec(db,SQL_SELECT,AddInHash, (void*)data,&zErrMsg);
+   if ( rc != SQLITE_OK ){
+      cout << "{sqlite3 log} SQL error: " << zErrMsg << endl;
+   } else {
+      cout << "{sqlite3 log} Inforamation load successfully" << endl;
+   }
 
    do {
       sesion.StartSesion();
-   } while ( !process.Identifie(sesion.GetPerson()) && sesion.GetAttemptCount() < 3);
+      try_numbers++;
+   } while ( !process.Identifie(sesion.GetPerson()) && try_numbers < 3 );
    
    if (!process.GetStatus()){
       if (process.log_errors == 3 && process.pas_errors != 3){
@@ -248,31 +403,20 @@ int main(void) {
       } else if (process.pas_errors == 3 && process.log_errors){
          cout << "[     log     ] Unauthorized access attempt" << endl;
 
-      } else {
-
-
       }
+   } else {
+      if (sesion.GetPerson().loggin == "Administrator"){
+         AdminSesion sub_process = AdminSesion(db);
+      } else {
+         cout << "[     log     ] Enter into acaunt" << endl;
+      }
+
+
+
    }
 
 
-
-   cout << "Enter any button ... ";
-   cin >> stop;
+   // closed connection with db
+   sqlite3_close(db);
    return 0;
 }
-
-
-   // sqlite3 *db;asf
-   // char *zErrMsg = 0;
-   // int rc;aas
-
-   // rc = sqlite3_open("test.db", &db);
-
-   // if( rc ) {
-   //    std::cout << "Can't open database: \n";
-   //    return(0);
-   // } else {
-   //    std::cout << "Opened database successfully: \n";
-
-   // }
-   // sqlite3_close(db);
