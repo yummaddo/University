@@ -14,7 +14,7 @@ struct Product {
     float price;
 };
 
-#define is_ua 0
+#define is_ua 1
 
 
 void FirstProgramSecion() {
