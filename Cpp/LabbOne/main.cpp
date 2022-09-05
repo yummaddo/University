@@ -106,6 +106,7 @@ class DataBase{
             } //first item we ignored becose this is admin
             i++;iter++;
          }
+         return Person("Nool","Nool");
       }
 
    private:
