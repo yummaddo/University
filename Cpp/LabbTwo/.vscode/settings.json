@@ -29,6 +29,9 @@
     "**/.vscode/**"
   ],
   "files.associations": {
-    "cmath": "cpp"
+    "cmath": "cpp",
+    "array": "cpp",
+    "string": "cpp",
+    "string_view": "cpp"
   }
 }
