@@ -60,8 +60,8 @@ void SecondProgramSecion() {
 
     scanf("%f %f", &x, &y);
     printf("------------------------------------------------------------------------------------------\n");
-    for (float a = -1.0f; a < 1; a += 0.2) {
-        for (float b = -1.0f; b < 1; b += 0.2) {
+    for (float a = -5.0f; a < 5; a += 0.25) {
+        for (float b = -5.0f; b < 5; b += 0.25) {
             if (b != a && b != -x && b != x && ((a + x) / (b + x)) > 0) {
                 t1 = (float)(b / ((a - b) * (b + x)) - a / (a - b) * (a - b) * log((a + x) / (b + x)));
                 printf("|%+34.10f|", t1);
@@ -99,9 +99,6 @@ int main() {
     SetConsoleOutputCP(1251); /* налаштувння таблиці кодування виводу*/
     FirstProgramSecion();
     SecondProgramSecion();
-    ThirdProgramSecion();
-
     system("pause");
-
     return 0;
 }
