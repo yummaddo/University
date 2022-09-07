@@ -58,10 +58,8 @@ div#wrapperHeader div#header img {
 }
 
 
-.imgPool{
-	position: absolute;
-	z-index: 2; /* помещаем .green-box поверх .dashed-box */
-}
+
+
 
 .liner {
 	display: inline-block;
