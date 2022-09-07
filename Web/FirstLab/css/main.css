@@ -6,10 +6,6 @@
 
 .page{
     flex: 1 0 auto;
-<<<<<<< HEAD
-
-=======
->>>>>>> Cpp
     display: flex;
     flex-direction:column;
 }
@@ -29,11 +25,7 @@ body {
     margin: 0;    
 
    
-<<<<<<< HEAD
-    background-image: url("./../img/209.jpg");
-=======
     background-image: url("./../img/78.png");
->>>>>>> Cpp
     background-size: 100% auto;
     background-repeat: repeat;
     
@@ -62,12 +54,9 @@ body {
     padding: 0;
     list-style: none;
 }
-<<<<<<< HEAD
-=======
 p{
     font-family: "DejaVu Sans Mono", monospace	;
 }
->>>>>>> Cpp
 
 .services a {
     text-decoration: none;
@@ -93,12 +82,8 @@ p{
     border-color: #8D8895;
     border-width: 5px;
     background: #D1CDD7;
-<<<<<<< HEAD
-    font-family: 'Roboto', sans-serif;
-=======
     font-family: "DejaVu Sans Mono", monospace	;
 
->>>>>>> Cpp
     -webkit-box-shadow: 27px 25px 45px -22px rgba(0, 0, 0, 0.54);
     -moz-box-shadow: 27px 25px 45px -22px rgba(0, 0, 0, 0.54);  
     box-shadow: 27px 25px 45px -22px rgba(0, 0, 0, 0.54);
@@ -110,12 +95,8 @@ p{
     border-color: #8D8895;
     border-width: 5px;
     background: #D1CDD7;
-<<<<<<< HEAD
-    font-family: 'Roboto', sans-serif;
-=======
     font-family: "DejaVu Sans Mono", monospace	;
 
->>>>>>> Cpp
     -webkit-box-shadow: 27px 25px 45px -22px rgba(0, 0, 0, 0.54);
     -moz-box-shadow: 27px 25px 45px -22px rgba(0, 0, 0, 0.54);  
     box-shadow: 27px 25px 45px -22px rgba(0, 0, 0, 0.54);
@@ -159,11 +140,7 @@ p{
 
 nav {
     padding: 3.45%;
-<<<<<<< HEAD
-    font-family: 'Roboto', sans-serif;
-=======
     font-family: "DejaVu Sans Mono", monospace	;
->>>>>>> Cpp
   }
 
 
@@ -224,11 +201,7 @@ nav {
     top: 0px;
     width: 100%;
     height: 100px;
-<<<<<<< HEAD
-    background-color: hsl(270, 3%, 88%);
-=======
     background-color: #C0B9B0;
->>>>>>> Cpp
 
 }
 
@@ -253,8 +226,6 @@ nav {
 }
 
 
-<<<<<<< HEAD
-=======
 img {
 	float: left;
 }
@@ -296,7 +267,6 @@ img {
 
 
 
->>>>>>> Cpp
 .zoom-element{
     margin-left: 5%;
     transition: all 0.14s ease-in;
@@ -323,11 +293,6 @@ img {
 }
 
 
-<<<<<<< HEAD
-
-
-
-=======
 .imgPool{
     padding-left: 5%;
 
@@ -339,7 +304,6 @@ img {
 	/* position: absolute;
 	z-index: 2; /* помещаем .green-box поверх .dashed-box */
 }
->>>>>>> Cpp
 
 
 .main {
@@ -355,8 +319,6 @@ img {
 
 }
 
-<<<<<<< HEAD
-=======
 
 .right-img-side {
     float: right;
@@ -366,7 +328,6 @@ img {
     height: 5%;
 }
 
->>>>>>> Cpp
 .borderRagius {
     border: 6px solid #E0DBE8;
     border-radius: 25px;
