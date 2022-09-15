@@ -32,6 +32,11 @@
     "cmath": "cpp",
     "array": "cpp",
     "string": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "cstdlib": "cpp",
+    "iostream": "cpp",
+    "*.tcc": "cpp",
+    "unordered_map": "cpp",
+    "iosfwd": "cpp"
   }
 }

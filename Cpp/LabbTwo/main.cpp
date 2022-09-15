@@ -212,11 +212,99 @@ void SecondProgramSecion() {
     printf("------------------------------------------------------------------------------------------\n");
 }
 
+
+
+void ThidProgramSecion(){
+    printf(_strdup("-----------------------------------------------------------------------\n"));
+    printf(_strdup("|Number | Type          |Expression                                   |\n"));
+    printf(_strdup("-----------------------------------------------------------------------\n"));
+    printf(_strdup("| 1     | Logarithm     |t=1/(b^3)*(ln(y/x – a^2*x^2/(2*y^2)))        |\n"));
+    printf(_strdup("| 2     | Radical       |t=1/(b^0,5)*(y^0,5/x – a^0,5*x^2/(2*y^0,5))) |\n"));
+    printf(_strdup("| 3     | Trigonometry  |t=cos(bx+0,5)*sin(y/x – a^0,5*x^2)           |\n"));
+    printf(_strdup("-----------------------------------------------------------------------\n"));
+    printf("{Enter the number or type of expression} >> ");
+    char ex[30];
+    scanf("%s",&ex);
+    float x, y, t;
+    printf("Input x,y parameters : ");
+
+    scanf("%f %f", &x, &y);
+
+    if ( !strcmp(ex,_strdup("1"))  || !strcmp(ex,_strdup("Logarithm"))  ){
+        printf("Logarithm\n");
+        printf("--------------------------------------------------------\n");
+
+        for (float a = -5.0f; a < 5; a += 0.5) {
+            for (float b = -5.0f; b < 5; b += 0.5) { 
+                if (b*b*b != 0 && x != 0 && 2*y*y != 0 && y/x-a*a*x*x/(2*y*y) > 0 ){
+                    t = 1/(b*b*b)*(log(y/x - a*a*x*x/(2*y*x)));
+                    printf("|%+34.8f|", t);
+                } else {
+                    printf(_strdup("|                  invalid values t|"));
+                }
+                printf("  a=%+4.2f", a);
+                printf("  b=%+4.2f |\n", b);
+
+            }
+        }
+
+    } else if ( !strcmp(ex,_strdup("2")) || !strcmp(ex,_strdup("Radical")) ){
+        printf("Radical\n");
+        printf("--------------------------------------------------------\n");
+
+        for (float a = -5.0f; a < 5; a += 0.5) {
+            for (float b = -5.0f; b < 5; b += 0.5) { 
+                if ( b > 0 && y > 0 && x != 0){
+                    t = 1/(sqrt(b))*(sqrt(y)/x - sqrt(a)*x*x/(2*sqrt(y)));
+                    
+                    printf("|%+34.8f|", t);
+                } else {
+                    printf(_strdup("|                  invalid values t|")); 
+                }
+                printf("  a=%+4.2f", a);
+                printf("  b=%+4.2f |\n", b);
+            }
+        }
+    } else if ( !strcmp(ex,_strdup("3")) || !strcmp(ex,_strdup("Trigonometry")) ){
+        printf("Trigonometry\n");
+        printf("--------------------------------------------------------\n");
+
+        for (float a = -5.0f; a < 5; a += 0.5) {
+            for (float b = -5.0f; b < 5; b += 0.5) { 
+                if ( x!=0 && a >= 0){
+                    if (y/x != sqrt(a)*x*x) {
+                        t = cos(b*x+0.5)*sin(y/x - sqrt(a)*x*x);
+                        printf("|%+34.8f|", t);
+                        printf(_strdup("|                  invalid values t|")); 
+                    }
+                } else {
+                    printf(_strdup("|                  invalid values t|"));
+                }
+                printf("  a=%+4.2f", a);
+                printf("  b=%+4.2f |\n", b);
+            }
+        }
+    } else {
+        printf("No type or number \n");
+    }
+    printf("--------------------------------------------------------\n");
+
+}
+
+void FourthProgramSecion(){
+    system("g++ -c compiller.cpp -static-libstdc++ -o compiller.o" );
+    system("g++ compiller.o -static-libstdc++ -o compiller" );
+    system( "compiller" );
+}
+
+
 int main() {
     SetConsoleCP(1251); /* налаштувння таблиці кодування вводу*/
     SetConsoleOutputCP(1251); /* налаштувння таблиці кодування виводу*/
     FirstProgramSecion();
     SecondProgramSecion();
+    ThidProgramSecion();
+    FourthProgramSecion();
     system("pause");
     return 0;
 }
