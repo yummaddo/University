@@ -199,7 +199,7 @@ void process_two() {
 
 
 int main() {
-    // process_one();
+    process_one();
     process_two();
 
     return 1;

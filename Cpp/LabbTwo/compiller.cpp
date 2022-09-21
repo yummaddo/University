@@ -9,7 +9,7 @@ using namespace std;
 
 void eval( string expression, int type );
 
-string a,b, x;
+string a,b, x,y;
 
 
 
@@ -21,8 +21,11 @@ int main( int argc, char *argv[] )
     int type;
     cout << "Input x: ";
     cin >> x;
+    cout << "Input y: ";
+    cin >> x;
+
     cout << "Input a,b type" << endl;
-    cout << "Input 0 if has a" << endl;
+    cout << "Input 0 if havent not a,b" << endl;
     cout << "Input 1 if has a but hasnt b" << endl;
     cout << "Input 2 if has b but hasnt a" << endl;
     cout << "Input 3 if has b alse has a" << endl;
@@ -88,5 +91,4 @@ void eval( string expression, int type )
     out.close();
     system( "g++ -static-libstdc++ -o abc.exe abc.cpp" );
     system( "abc" );
-    system("pause");
 }

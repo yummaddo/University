@@ -50,6 +50,7 @@ void insert_end()
         printf("Out of Memory Space:\n");
         return;
     }
+    printf("{value : name, provider number price} \n");
     printf("{Enter the Human Resources Department value} >> ");
     scanf("%s", &temp->name);
 
@@ -103,6 +104,7 @@ void create()
         printf("nOut of Memory Space:\n");
         exit(0);
     }
+    printf("{value : name, provider number price} \n");\
     printf("{Enter the Human Resources Department value} >> ");
     scanf("%s", &temp->name);
     if (strcmp(temp->name, "exit")) {
@@ -254,7 +256,7 @@ void ThidProgramSecion(){
 
         for (float a = -5.0f; a < 5; a += 0.5) {
             for (float b = -5.0f; b < 5; b += 0.5) { 
-                if ( b > 0 && y > 0 && x != 0){
+                if ( b > 0 && y > 0 && x != 0 && a >= 0){
                     t = 1/(sqrt(b))*(sqrt(y)/x - sqrt(a)*x*x/(2*sqrt(y)));
                     
                     printf("|%+34.8f|", t);
@@ -305,6 +307,5 @@ int main() {
     SecondProgramSecion();
     ThidProgramSecion();
     FourthProgramSecion();
-    system("pause");
     return 0;
 }
