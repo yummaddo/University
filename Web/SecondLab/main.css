@@ -1,0 +1,35 @@
+.pool-main-information {
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+
+}
+
+h2{
+    text-align: center;
+}
+
+
+input {
+    display: flex;
+     width: auto;
+    vertical-align: middle;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0px;
+}
+
+.form-group{
+    margin-bottom: 28px;
+    padding-left: 28px;
+}
+
+.form-information {
+    width: 100%;
+
+}
