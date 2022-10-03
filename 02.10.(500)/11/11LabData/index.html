@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<title>Checking verbal calculate</title>
+	<script type="text/javascript" src="dow.js"></script>
+	<script type="text/javascript" src="math_logic.js"></script>
+</head>
+<body>
+<h2>
+	Day Of Week
+</h2>
+<p>&</p>
+<script type="text/javascript">
+	new ImageArray();
+</script>
+<div id="tables">
+	<H1>Math Test</H1>
+	<hr>
+	<!--80-->
+	<form name="test">
+    	<TABLE BORDER=0 id="buttons_1">
+        	<TR>
+            	<TD class="zoom-block "><INPUT class="colorizing" NAME=i10 TYPE=button VALUE="0-10" onClick='set_max_value("10")'></TD>
+            	<TD class="zoom-block "><INPUT class="colorizing" NAME=i18 TYPE=button VALUE="0-18" onClick='set_max_value("18")'></TD>
+            	<TD class="zoom-block "><INPUT class="colorizing" NAME=i20 TYPE=button VALUE="0-20" onClick='set_max_value("20")'></TD>
+            	<TD class="zoom-block "><INPUT class="colorizing" NAME=i100 TYPE=button VALUE="0-100" onClick='set_max_value("100")'></TD>
+            	<TD class="zoom-block "><INPUT class="operand_colorizing" NAME=i+ TYPE=button VALUE="+" onClick='set_sign("+")'></TD>
+            	<TD class="zoom-block "><INPUT class="operand_colorizing" NAME=i- TYPE=button VALUE="-" onClick='set_sign("-")'></TD>
+            	<TD class="zoom-block "><INPUT class="operand_colorizing" NAME=i* TYPE=button VALUE="*" onClick='set_sign("*")'></TD>
+        	</TR>
+    	</TABLE>
+    	<HR>
+    	<!--90-->
+    	<TABLE id="buttons_2">
+        	<TR>
+            	<TD class="zoom-block"><label>
+                	<INPUT NAME=op1 SIZE=2 MAXLENGTH=2>
+            	</label></TD>
+            	<TD class="zoom-block"><label>
+                	<INPUT NAME=s_sign SIZE=1 MAXLENGTH=1>
+            	</label></TD>
+            	<TD class="zoom-block"><label>
+                	<INPUT NAME=op2 SIZE=2 MAXLENGTH=2>
+            	</label></TD>
+            	<TD>=</TD>
+            	<TD class="zoom-block"><label>
+                	<INPUT NAME=result SIZE=3 MAXLENGTH=3>
+            	</label></TD>
+            	<TD class="zoom-block"><INPUT NAME=award TYPE=button VALUE="?" onClick="main_calc()">
+            	<TD class="zoom-block"><label>
+                	<INPUT NAME=r0 VALUE="???">
+            	</label>
+        	</TR>
+    	</TABLE>
+    	<HR>
+    	<!--100-->
+    	<TABLE border="2" id="buttons_3">
+        	<TR>
+            	<TD class="zoom-block"><INPUT NAME=b1 TYPE=button VALUE="1" onClick='input_sign("1")'></TD>
+            	<TD class="zoom-block"><INPUT NAME=b2 TYPE=button VALUE="2" onClick='input_sign("2")'></TD>
+            	<TD class="zoom-block"><INPUT NAME=b3 TYPE=button VALUE="3" onClick='input_sign("3")'></TD>
+        	</TR>
+        	<TR>
+            	<TD class="zoom-block"><INPUT NAME=b4 TYPE=button VALUE="4" onClick='input_sign("4")'></TD>
+            	<TD class="zoom-block"><INPUT NAME=b5 TYPE=button VALUE="5" onClick='input_sign("5")'></TD>
+            	<TD class="zoom-block"><INPUT NAME=b6 TYPE=button VALUE="6" onClick='input_sign("6")'></TD>
+        	</TR>
+        	<TR>
+            	<TD class="zoom-block"><INPUT NAME=b7 TYPE=button VALUE="7" onClick='input_sign("7")'></TD>
+            	<TD class="zoom-block"><INPUT NAME=b8 TYPE=button VALUE="8" onClick='input_sign("8")'></TD>
+            	<TD class="zoom-block"><INPUT NAME=b9 TYPE=button VALUE="9" onClick='input_sign("9")'></TD>
+        	</TR>
+        	<TR>
+            	<TD class="zoom-block"><INPUT NAME=b0 TYPE=button VALUE="0" onClick='input_sign("0")'></TD>
+            	<TD class="zoom-block" COLSPAN=2><INPUT NAME=bs TYPE=button VALUE="OK" onClick='input_sign("10")'></TD>
+        	</TR>
+    	</TABLE>
+	</form>
+</div>
+<HR>
+</body>
+</html>

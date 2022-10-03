@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article SYSTEM "index.dtd">
+<article>
+  <list1>
+    <name>
+      <text>Невпорядкований список</text>
+    </name>
+    <orderedlist>
+      <listitem>
+        <para>
+          <text>Томат </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>Огірок </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>Кабачок </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>Баклажан </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>Перець </text>
+        </para>
+      </listitem>
+    </orderedlist>
+  </list1>
+  <list2>
+    <name>
+      <text>Впорядкований список</text>
+    </name>
+    <para>
+      <text>Рецепт коул слоу салату</text>
+    </para>
+    <orderedlist>
+      <listitem>
+        <para>
+          <text>Підготуйте овочі для салату. Моркву помийте та почистьте. Наріжте тонкою соломкою за
+            допомогою ножа або спеціальної економки з зубчиками.  </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>Капусту помийте та наріжте тонкою соломкою, використовуючи ніж. Бажано, щоб вона
+            вийшла довгою. Складіть овочі в глибоку миску. </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>Готуйте соус. Корінь хрону (6-10 г) натріть на дрібній тертці. Якщо у вас є
+            консервований, використовуйте його. Перекладіть в невеличку мисочку, додайте 50
+            г сметани не менше 20% жирності та 6 г солодкої гірчиці. Посоліть та поперчіть до смаку.
+          </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>Перемішайте та заправте салат. Коул Слоу бажано залишити на годину чи навіть дві,
+            аби соус пом’якшив смак капусти. </text>
+        </para>
+      </listitem>
+    </orderedlist>
+  </list2>
+  <list3>
+    <name>
+      <anchor id="list"/>
+      <text>Список визначень</text>
+    </name>
+    <para>
+      <text>Визначення в області програмування</text>
+    </para>
+    <para>
+      <text>HTML </text>
+    </para>
+    <para>
+      <text>HTML — стандартизована мова розмітки документів для перегляду веб-сторінок у браузері.
+      </text>
+    </para>
+    <para>
+      <text>C# </text>
+    </para>
+    <para>
+      <text>C# — об'єктно-орієнтована мова програмування з безпечною системою типізації для
+        платформи .NET. </text>
+    </para>
+    <para>
+      <text>JS </text>
+    </para>
+    <para>
+      <text>JavaScript (JS) — динамічна, об'єктно-орієнтована прототипна мова програмування. </text>
+    </para>
+  </list3>
+  <list4>
+    <name>
+      <text>Список виізуальний</text>
+    </name>
+    <orderedlist>
+      <listitem>
+        <para>
+          <text>18 травня </text>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <text>20 серпня </text>
+        </para>
+      </listitem>
+    </orderedlist>
+    <para>
+      <link linkend="">Перейти до списку визначень</link>
+      <olink targetdocent="Images/dog.jpeg">Собака</olink>
+    </para>
+  </list4>
+</article>

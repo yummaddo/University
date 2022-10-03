@@ -1,0 +1,16 @@
+<!ELEMENT article (list1,list2,list3,list4)>
+<!ELEMENT anchor EMPTY>
+<!ELEMENT list1 (name+,orderedlist+)>
+<!ELEMENT list2 (name+,para+,orderedlist+)>
+<!ELEMENT list3 (name+,para+)>
+<!ELEMENT list4 (name+,orderedlist+,para+)>
+<!ELEMENT orderedlist (listitem+)>
+<!ELEMENT listitem (para)>
+<!ELEMENT para (link*,olink*,text*)>
+<!ELEMENT name (anchor*,text*)>
+<!ATTLIST anchor id CDATA "0">
+<!ELEMENT text (#PCDATA)>
+<!ELEMENT link (#PCDATA)>
+<!ATTLIST link linkend CDATA "0">
+<!ELEMENT olink (#PCDATA)>
+<!ATTLIST olink targetdocent CDATA "0">
