@@ -1,0 +1,573 @@
+@import url(https://fonts.googleapis.com/css?family=Racing+Sans+One);
+
+
+html {
+    -webkit-text-size-adjust: none;
+}
+a,abbr,acronym,address,applet,article,aside,audio,b,blockquote,big,body,center,canvas,caption,cite,code,command,datalist,dd,del,details,dfn,dl,div,dt,em,embed,fieldset,figcaption,figure,font,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,keygen,label,legend,li,meter,nav,object,ol,output,p,pre,progress,q,s,samp,section,small,span,source,strike,strong,sub,sup,table,tbody,tfoot,thead,th,tr,tdvideo,tt,u,ul,var{background:transparent;border:0 none;font-size:100%;margin:0;padding:0;border:0;outline:0;vertical-align:top;}ol, ul {list-style:none;}blockquote, q {quotes:none;}table, table td {padding:0;border:none;border-collapse:collapse;}img {vertical-align:top;}embed {vertical-align:top;}
+article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure, footer, header, hgroup, keygen, meter, nav, output, progress, section, source, video {display:block;}
+mark, rp, rt, ruby, summary, time {
+    display:inline;
+}
+input, textarea {
+    border:0; 
+    padding:0;
+     margin:0; 
+     outline: 0;}
+iframe {
+    border:0; 
+    margin:0; 
+    padding:0;}
+input, textarea, select {
+    margin:0; 
+    padding:0px;
+}
+
+h1, h2 	{font-size: 25px;line-height: 25px;}
+h3, h4	{font-size: 20px;line-height: 20px;}
+h5, h6	{font-size: 16px;line-height: 16px;}
+
+
+.t-center{text-align: center;}
+.t-left{text-align: left;}
+.t-right{text-align: right;}
+.f-right{float: right;}
+.f-left{float: left;}
+
+/* ---------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------- */
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+/* ---------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------- */
+
+img{
+    max-width:100%;	
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+.price{
+    font-size: 40px;
+    color: #5ABD5E;
+    line-height: 50px;
+    margin-bottom: 20px;
+}
+
+a{
+    color: #ff970b;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+p{
+    margin: 10px 0;
+    color: #777;
+}
+/* ---------------------------------------------------------------------------- */
+/* ------------------------------------Html-Body------------------------------- */
+/* ---------------------------------------------------------------------------- */
+html, body {width:100%; padding:0; margin:0;}
+body {background: #fff;color: #3F3F3F;font: 14px/25px Arial, Helvetica, sans-serif;font-family: Montserrat, sans-serif;}
+body .wrap-body{}
+
+/* ---------------------------------------------------------------------------- */
+/* -------------------------------------Header--------------------------------- */
+/* ---------------------------------------------------------------------------- */
+header{
+    background: #464646;
+    padding: 60px 0 40px;
+}
+header .wrap-header{}
+header .logo img{display: inline-block;margin: 0 auto 30px;max-width: 300px;}
+@media all and (max-width: 768px){
+	header{
+        padding: 0;
+    }
+	header .logo{
+        text-align:center;
+        width: 100%;
+    }
+	header .logo img{
+        display:block;
+        max-width: 200px;
+    }
+}
+
+
+/* ---------------------------------------------------------------------------- */
+/* -------------------------------------Footer--------------------------------- */
+/* ---------------------------------------------------------------------------- */
+footer{
+    text-align: center;
+    background-image: url(../images/footer.jpg);
+    min-height: 650px;
+}
+footer a{
+    color: #fff;
+}
+footer .wrap-footer{
+    color: #fff;
+    font-size: 13px;
+    padding: 30px 20px;
+}
+footer .wrap-footer h3{
+    margin-bottom: 10px;
+}
+footer ul.quick-link li{
+    display: inline-block;
+    margin: 0 10px 10px 0;
+}
+footer ul.quick-link li a{
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+footer ul.social-buttons{
+    margin-top: 70px;
+}
+footer ul.social-buttons li{
+    display: inline-block;
+}
+footer ul.social-buttons li a{
+    padding-top: 15px;
+    display: block;
+    width: 67px;
+    height: 67px;
+    border-radius: 50%;
+    font-size: 37px;
+    line-height: 2;
+    color: #ffffff;
+    background-color: #464646;
+    transition-duration: 0.3s;
+    margin-right: 8px;
+}
+footer ul.social-buttons li a:hover, ul.social-buttons li a:focus, ul.social-buttons li a:active{
+    background-color: #5ABD5E;
+}
+
+
+/* ---------------------------------------------------------------------------- */
+/* -------------------------------------Container------------------------------ */
+/* ---------------------------------------------------------------------------- */
+.content-box {}
+.content-box .wrap-box {
+    padding:150px 10px;
+    position: relative;
+}
+.content-box .header { 
+    margin-bottom: 50px;
+}
+.content-box .header h2{
+    font-size: 54px; 
+    line-height: 1.2;
+    font-weight: 500;
+    color: #444;
+}
+.content-box .header .wrapper{
+    padding: 5px;
+    display: inline-block;
+}
+
+
+
+.content-box.boxstyle-1{
+    background-attachment:fixed;
+     background-image: url(../images/garden.jpg);
+      background-color: #222;
+      color:#fff;}
+.content-box.boxstyle-2{
+    background:#F4F3F3;
+}
+
+.content-box.box-1 {}
+.home-page .content-box.box-1 h1{
+    font-size: 75px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #5ABD5E;
+    margin: 0;
+}
+
+.home-page .content-box.box-1 span{
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+.home-page .content-box.box-1 p {
+    font-size: 22px;
+    margin-top: 40px;
+}
+.content-box.box-1 .post {
+    text-align: initial;
+    margin-bottom: 30px;
+}
+.content-box.box-1 .post span{
+    font-size: 20px;
+}
+.content-box.box-1 .post p{
+    font-size: 16px;
+    margin-top: 10px;
+}
+.content-box.box-1 .post img{
+    border-radius: 50%;
+}
+
+
+
+.content-box.box-2 {
+    text-align: center;
+    min-height: 500px
+}
+.content-box.box-2 h2{
+    font-size: 75px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.content-box.box-2 span{
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.content-box.box-3 {} 
+.content-box.box-3 h3{
+    font-size: 45px;
+    line-height: 1.2;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.content-box.box-3 span{
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #5ABD5E;
+    margin-bottom: 20px;
+}
+.content-box.box-3 .wrapper{}
+
+.content-box.box-4 {}
+.content-box.box-4 h3 {
+    font-weight: 500;
+    line-height: 1.2;
+}
+.content-box.box-4 img{
+    margin-bottom: 30px;
+    max-width: 250px;
+    border-radius: 50%;
+}
+/* ---------------------------------------------------------------------------- */
+/* -------------------------------Menu---------------------------------- */
+/* ---------------------------------------------------------------------------- */
+
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul li a,
+#cssmenu #menu-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#cssmenu:after,
+#cssmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu #menu-button {
+  display: none;
+}
+#cssmenu {
+  z-index: 999;
+  display: inline-block;
+  float: right;
+  
+}
+#cssmenu > ul > li {
+  float: left;
+}
+#cssmenu.align-center > ul {
+  font-size: 0;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  display: inline-block;
+  float: none;
+}
+#cssmenu.align-center ul ul {
+  text-align: left;
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu > ul > li > a {
+  padding: 27px 17px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500; 
+  text-transform: uppercase;
+}
+#cssmenu > ul > li:hover > a {
+  color: #5ABD5E;
+} 
+#cssmenu ul ul {
+  position: absolute;
+  left: -9999px;
+}
+#cssmenu.align-right ul ul {
+  text-align: right;
+}
+#cssmenu ul ul li {
+  height: 0;
+  -webkit-transition: all .25s ease;
+  -moz-transition: all .25s ease;
+  -ms-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
+}
+#cssmenu li:hover > ul {
+  left: auto;
+}
+#cssmenu.align-right li:hover > ul {
+  left: auto;
+  right: 0;
+}
+#cssmenu li:hover > ul > li {
+  height: 35px;
+}
+#cssmenu ul ul ul {
+  margin-left: 100%;
+  top: 0;
+}
+#cssmenu.align-right ul ul ul {
+  margin-left: 0;
+  margin-right: 100%;
+}
+#cssmenu ul ul li a {
+  border-bottom: 1px solid rgba(150, 150, 150, 0.15);
+  padding: 11px 15px;
+  width: 170px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #dddddd;
+  font-weight: 400;
+  background: #3B3B3B;
+}
+#cssmenu ul ul li:last-child > a,
+#cssmenu ul ul li.last-item > a {
+  border-bottom: 0;
+}
+#cssmenu ul ul li:hover > a,
+#cssmenu ul ul li a:hover {
+  color: #ffffff;
+}
+
+
+@media all and (max-width: 768px){
+	header{padding: 0;}
+	header .logo{text-align:center;width: 100%;}
+	header .logo img{display:block;max-width: 200px;}
+}
+
+
+@media all and (max-width: 768px),
+only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 1024px),
+only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 1024px),
+only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 1024px),
+only screen and (min-device-pixel-ratio: 2) and (max-width: 1024px),
+only screen and (min-resolution: 192dpi) and (max-width: 1024px),
+only screen and (min-resolution: 2dppx) and (max-width: 1024px) {
+    #cssmenu {
+      width: 100%;
+      background: #3b3b3b;
+      margin: 0 0 30px;
+    }
+    #cssmenu ul {
+      width: 100%;
+      display: none;
+    }
+    #cssmenu.align-center > ul {
+      text-align: left;
+    }
+    #cssmenu ul li {
+      width: 100%;
+      border-top: 1px solid rgba(120, 120, 120, 0.2);
+    }
+    #cssmenu ul ul li,
+    #cssmenu li:hover > ul > li {
+      height: auto;
+    }
+    #cssmenu ul li a,
+    #cssmenu ul ul li a {
+      width: 100%;
+      border-bottom: 0;
+    }
+    #cssmenu > ul > li {
+      float: none;
+    }
+    #cssmenu ul ul li a {
+      padding-left: 25px;
+    }
+    #cssmenu ul ul ul li a {
+      padding-left: 35px;
+    }
+    #cssmenu ul ul li a {
+      color: #dddddd;
+      background: none;
+    }
+    #cssmenu ul ul li:hover > a,
+    #cssmenu ul ul li.active > a {
+      color: #ffffff;
+    }
+    #cssmenu ul ul,
+    #cssmenu ul ul ul,
+    #cssmenu.align-right ul ul {
+      position: relative;
+      left: 0;
+      width: 100%;
+      margin: 0;
+      text-align: left;
+    }
+    #cssmenu #menu-button {
+      display: block;
+      padding: 17px;
+      color: #dddddd;
+      cursor: pointer;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    #cssmenu #menu-button:after {
+      position: absolute;
+      top: 22px;
+      right: 17px;
+      display: block;
+      height: 4px;
+      width: 20px;
+      border-top: 2px solid #dddddd;
+      border-bottom: 2px solid #dddddd;
+      content: '';
+    }
+    #cssmenu #menu-button:before {
+      position: absolute;
+      top: 16px;
+      right: 17px;
+      display: block;
+      height: 2px;
+      width: 20px;
+      background: #dddddd;
+      content: '';
+    }
+    #cssmenu #menu-button.menu-opened:after {
+      top: 23px;
+      border: 0;
+      height: 2px;
+      width: 15px;
+      background: #ffffff;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    #cssmenu #menu-button.menu-opened:before {
+      top: 23px;
+      background: #ffffff;
+      width: 15px;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+    }
+    #cssmenu .submenu-button {
+      position: absolute;
+      z-index: 99;
+      right: 0;
+      top: 0;
+      display: block;
+      border-left: 1px solid rgba(120, 120, 120, 0.2);
+      height: 46px;
+      width: 46px;
+      cursor: pointer;
+    }
+    #cssmenu .submenu-button.submenu-opened {
+      background: #262626;
+    }
+    #cssmenu ul ul .submenu-button {
+      height: 34px;
+      width: 34px;
+    }
+    #cssmenu .submenu-button:after {
+      position: absolute;
+      top: 22px;
+      right: 19px;
+      width: 8px;
+      height: 2px;
+      display: block;
+      background: #dddddd;
+      content: '';
+    }
+    #cssmenu ul ul .submenu-button:after {
+      top: 15px;
+      right: 13px;
+    }
+    #cssmenu .submenu-button.submenu-opened:after {
+      background: #ffffff;
+    }
+    #cssmenu .submenu-button:before {
+      position: absolute;
+      top: 19px;
+      right: 22px;
+      display: block;
+      width: 2px;
+      height: 8px;
+      background: #dddddd;
+      content: '';
+    }
+    #cssmenu ul ul .submenu-button:before {
+      top: 12px;
+      right: 16px;
+    }
+    #cssmenu .submenu-button.submenu-opened:before {
+      display: none;
+    }
+  }
+
+.btn {
+    -moz-user-select: none;
+    border: 3px solid #d2583e;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-family: 'Racing Sans One', cursive;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    transform: rotate(0deg) scale(1.003) skew(-14deg) translate(0px);
+    vertical-align: middle;
+    white-space: nowrap;
+}
