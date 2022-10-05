@@ -151,6 +151,12 @@ footer a{
     color: rgba(179, 205, 211, 0.896);
 }
 
+
+footer .wrap-footer img{
+    padding-bottom:0%; 
+    margin-bottom:0%; 
+}   
+
 footer .wrap-footer{
     color: #fff;
     font-size: 13px;
@@ -180,7 +186,7 @@ footer ul.social-buttons li{
     display: inline-block;
 }
 footer ul.social-buttons li a{
-    padding-top: 15px;
+    /* padding-top: 15px; */
     display: block;
     width: 67px;
     height: 67px;
