@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+	<meta charset="utf-8">
+	<meta name="author" content="https://github.com/ochiantropos">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="subscribe">
+    <meta name="description" content="">
+    <title>About</title>
+    <link rel="stylesheet" href="css/zerogrid.css">
+	<link rel="stylesheet" href="css/style.css">	
+ </head>
+ <body class="home-page">
+<div class="wrap-body">
+<header>
+	<nav class="top-menu">
+		<a class="navbar-logo" href="main.html"><img src="images/logo.png"></a>
+		<ul class="menu-main">
+		  <li><a href="">Work</a></li>
+		  <li><a href="">About</a></li>
+		  <li><a href="">Story</a></li>
+		  <li><a href="">Gallery</a></li>
+		  <li><a href="">Contact</a></li>
+		</ul>
+	  </nav>
+</header>
+
+
+<style> /* priduct element */
+    .product-row {
+        display: -ms-flexbox; /* IE10 */
+        display: flex;
+        -ms-flex-wrap: wrap; /* IE10 */
+        flex-wrap: wrap;
+        margin: 0 -16px;
+      }
+      
+      .col-50 {
+        -ms-flex: 50%; /* IE10 */
+        flex: 50%;
+      }
+      
+      .col-75 {
+        -ms-flex: 75%; /* IE10 */
+        flex: 75%;
+      }
+      
+      .col-50,
+      .col-75 {
+        padding: 0 16px;
+      }
+      
+      .product-container {
+        background-color: #f2f2f2;
+        padding: 5px 20px 15px 20px;
+        border: 1px solid lightgrey;
+        border-radius: 3px;
+      }
+      
+      input[type=text] {
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      
+      label {
+        margin-bottom: 10px;
+        display: block;
+      }
+      
+      .icon-container {
+        margin-bottom: 20px;
+        padding: 7px 0;
+        font-size: 24px;
+      }
+      
+      .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px;
+        margin: 10px 0;
+        border: none;
+        width: 100%;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 17px;
+      }
+      
+      .btn:hover {
+        background-color: #45a049;
+      }
+      
+      span.price {
+        float: right;
+        color: grey;
+      }
+      
+      /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+      @media (max-width: 800px) {
+        .product-row {
+          flex-direction: column-reverse;
+        }
+        .col-25 {
+          margin-bottom: 20px;
+        }
+      }
+
+</style>
+
+
+<section id="container">
+    <div class="wrap-container">
+        <div class="row">
+            <div class="col-75">
+              <div class="product-container">
+                <form action="/action_page.php">
+                  <div class="product-row">
+                    <div class="col-50">
+                      <h3>Billing Address</h3>
+                      <label for="fname">Full Name</label>
+                      <input type="text" id="fname" name="firstname" placeholder="Ivan.">
+                      <label for="email">Email</label>
+                      <input type="text" id="email" name="email" placeholder="bhj010fert14@gmail.com">
+                      <label for="adr">Address</label>
+                      <input type="text" id="adr" name="address" placeholder="Khreshchatyk 52">
+                      <label for="city">City</label>
+                      <input type="text" id="city" name="city" placeholder="Kiyv">
+          
+                      <div class="product-row">
+                        <div class="col-50">
+                          <label for="state">State</label>
+                          <input type="text" id="state" name="state" placeholder="NY">
+                        </div>
+                        <div class="col-50">
+                          <label for="zip">Zip</label>
+                          <input type="text" id="zip" name="zip" placeholder="10001">
+                        </div>
+                      </div>
+                    </div>
+          
+                    <div class="col-50">
+                      <h3>Payment</h3>
+                      <label for="fname">Accepted Cards</label>
+                      <label for="cname">Name on Card</label>
+                      <input type="text" id="cname" name="cardname" placeholder="Joe Biden">
+                      <label for="ccnum">Credit card number</label>
+                      <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                      <label for="expmonth">Exp Month</label>
+                      <input type="text" id="expmonth" name="expmonth" placeholder="September">
+          
+                      <div class="product-row">
+                        <div class="col-50">
+                          <label for="expyear">Exp Year</label>
+                          <input type="text" id="expyear" name="expyear" placeholder="2018">
+                        </div>
+                        <div class="col-50">
+                          <label for="cvv">CVV</label>
+                          <input type="text" id="cvv" name="cvv" placeholder="153">
+                        </div>
+                      </div>
+                    </div>
+          
+                  </div>
+                  <label>
+                    <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                  </label>
+                  <input type="submit" value="Continue to checkout" class="btn">
+                </form>
+              </div>
+            </div>
+
+    </div>  
+</section> 
+
+
+<footer>  
+	<!-- <div class='embed-container maps' style="margin: 0; padding: 0;">
+		<iframe src="https://www.google.com/maps/d/embed?mid=1vFOSOE8q4diZc6CPXCnRymLT4lwNqbI" width="100%" height="400px" frameborder="0" style="border: 0;"></iframe>
+	</div> -->
+	<div class="wrap-footer">
+		<div class="zerogrid">
+			<div class="row">
+				<h3>Contact</h3>
+				<span>Phone /  </span><br>
+				<span>Email / </span><br>
+				<span>Studio /  </span><br>
+				<ul class="social-buttons">
+					<li><a href="#"><img src="images/ti.png"></a>
+					</li>
+					<li><a href="#"><img src="images/fi.png"></a>
+					</li>
+					<li><a href="#"><img src="images/yi.png"></a>
+					</li>
+					<li><a href="#"><img src="images/ii.png"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+</div>
+</body>
+</html>
