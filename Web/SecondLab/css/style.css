@@ -105,8 +105,18 @@ p{
 /* ---------------------------------------------------------------------------- */
 /* ------------------------------------Html-Body------------------------------- */
 /* ---------------------------------------------------------------------------- */
-html, body {width:100%; padding:0; margin:0;}
-body {background: #fff;color: #3F3F3F;font: 14px/25px Arial, Helvetica, sans-serif;font-family: Montserrat, sans-serif;}
+html, body {
+    width:100%; 
+    padding:0; 
+    margin:0;
+}
+body {
+    background: #fff;
+    color: #3F3F3F;
+    font: 14px/25px Arial, Helvetica, sans-serif;
+    font-family: Montserrat, sans-serif;
+}
+
 body .wrap-body{}
 
 /* ---------------------------------------------------------------------------- */
@@ -144,7 +154,6 @@ header .logo img{
 /* ---------------------------------------------------------------------------- */
 footer{
     text-align: center;
-    background-image: url(../images/footer.jpg);
     min-height: 650px;
 }
 footer a{
@@ -229,14 +238,17 @@ footer ul.social-buttons li a:hover, ul.social-buttons li a:focus, ul.social-but
 
 .content-box.boxstyle-1{
     background-attachment:fixed;
-     background-image: url(../images/garden.jpg);
       background-color: #222;
-      color:#fff;}
+      color:#fff;
+}
 .content-box.boxstyle-2{
     background:#F4F3F3;
 }
 
+
 .content-box.box-1 {}
+
+
 .home-page .content-box.box-1 h1{
     font-size: 75px;
     line-height: 1.2;
@@ -368,13 +380,17 @@ footer ul.social-buttons li a:hover, ul.social-buttons li a:focus, ul.social-but
     float: none;
     padding-top: 20px;
   }
+
   .top-menu {
     text-align: center;
     padding: 20px 0 0 0;
   }
+
   .menu-main a {padding: 0 10px;}
-  .menu-main a:before {transform: rotate(45deg) translateX(-6px);}
+  .menu-main a:before {
+    transform: rotate(45deg) translateX(-6px);}
   }
+
   @media (max-width: 600px) {
   .menu-main li {display: block;}
   }
