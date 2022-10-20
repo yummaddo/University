@@ -12,33 +12,40 @@
 #define NONE         "\033[m"
 #define RED          "\033[0;32;31m"
 
-// Функция для реализации функции `strcat()` в C
-char* MyRight(char* str1, int l)
-{
+char* MyRight(char* str, int zip_index) {
     int num1 = 0;
     char* temp1;
-
-
-    temp1 = str1;
-    while (*str1 != '\0') {
+    temp1 = str;
+    while (*str != '\0') {
         num1++;
-        str1++;
+        str++;
     }
-    char* str = (char*)malloc((num1 + l + 1) * sizeof(char));
-    *(str + num1 + l) = '\0';
-    int i = 0;
-    for (i; i < l; i++) {
-        *(str + i) = ' ';
+    str--;
+
+    //str -= num1;
+    int size = (num1 % zip_index == 0 ? num1 / zip_index : num1 / zip_index + 1) + num1 +1;
+    char* s = (char*)malloc(sizeof(char) * (size));
+    *(s + size-1) = '\0';
+
+    for (int i = 1; i <= size-1; i++) {
+        if (i == size-1) {
+            *(s + i - 1) = '\n';
+        }
+        else {
+            if (i % (zip_index + 1) != 0) {
+                *(s + i - 1) = *(str);
+                str--;
+            }
+            else {
+                *(s + i - 1) = '\n';
+            }
+        }
     }
 
-    while (*temp1 != '\0') {
-        *(str + i) = *temp1;
-        temp1++;
-        i++;
-    }
-    return str;
+    return s;
 
 }
+
 
 
 
@@ -123,3 +130,6 @@ int main()
     
     return 0;
 }
+
+
+
