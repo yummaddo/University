@@ -22,7 +22,7 @@ int main( int argc, char *argv[] )
     cout << "Input x: ";
     cin >> x;
     cout << "Input y: ";
-    cin >> x;
+    cin >> y;
 
     cout << "Input a,b type" << endl;
     cout << "Input 0 if havent not a,b" << endl;
@@ -61,23 +61,27 @@ void eval( string expression, int type )
     program = program + "int main()\n";
     program = program + "{\n";
     if (type == 0){
+        program = program + "float y = " + y + ";";
         program = program + "float x = " + x + ";";
         program = program + "   cout << \"Result: \" <<";
         program = program + "" + expression;
         program = program + " << endl;\n";
     } else if (type == 1) {
+        program = program + "float y = " + y + ";";
         program = program + "float x = " + x + ";";
         program = program + "float a = " + a + ";";
         program = program + "   cout << \"Result: \" <<";
         program = program + "" + expression;
         program = program + " << endl;\n";
     } else if (type == 2){
+        program = program + "float y = " + y + ";";
         program = program + "float x = " + x + ";";
         program = program + "float b = " + b + ";";
         program = program + "   cout << \"Result: \" <<";
         program = program + "" + expression;
         program = program + " << endl;\n";
     } else if (type == 3){
+        program = program + "float y = " + y + ";";
         program = program + "float x = " + x + ";";
         program = program + "float a = " + a + ";";
         program = program + "float b = " + b + ";";

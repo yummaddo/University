@@ -3,5 +3,5 @@
 using namespace std;
 int main()
 {
-float x = 12;   cout << "Result: " <<sin(x+23)-tan(12) << endl;
+float x = 42;float a = 12;float b = 46;   cout << "Result: " <<x^2+y-a*4+b << endl;
 }
