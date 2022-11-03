@@ -5,11 +5,109 @@
 *
 */
 
+/* menu */
+
+.mainmenubtn {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding:20px;
+    margin-top:20px;
+}
+
+.mainmenubtn:hover {
+    background-color: red;
+    }
+    
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-child {
+    display: none;
+    background-color: black;
+    min-width: 200px;
+}
+.dropdown-child a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown:hover .dropdown-child {
+    display: block;
+}
+
+.menu {
+    z-index: 2;
+    position: absolute;
+    height: 100px;
+    width: 1000px;
+}
+/* Animation element */
+
+
+
+
+
+
+.pulse {
+    position: absolute;
+    margin-top: 4px;
+    margin-left: 2px;
+    margin-right: 0;
+    margin-bottom: 0;
+
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: rgba(195, 60, 60, 0.691);
+    cursor: pointer;
+    box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+    animation: pulse 2s infinite;
+  }
+  .pulse:hover {
+    animation: none;
+  }
+
+
 /* Keyframes */
 
 
+  
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-box-shadow: 0 0 0 0 rgba(195, 60, 60, 0.502);
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+  }
+  @keyframes pulse {
+    0% {
+      -moz-box-shadow: 0 0 0 0 rgba(195, 60, 60, 0.502);
+      box-shadow: 0 0 0 0 rgba(195, 60, 60, 0.502);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+        box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }
+  }
+  
+
 
 /* General */
+
+
 
 body {
     font-family: 'Open Sans', Arial, sans-serif;
@@ -43,7 +141,6 @@ h2 {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background-color: #f3244a;
     position: absolute;
     cursor: pointer;
 }
