@@ -1,0 +1,11 @@
+﻿  lab2.cpp
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(17,60): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(24,8): warning C4477: "scanf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "char *(*)[18]"
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(26,8): warning C4477: "scanf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "char *(*)[14]"
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(36,8): warning C4477: "scanf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "char *(*)[14]"
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(45,8): warning C4477: "scanf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "char *(*)[14]"
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(56,9): warning C4477: "printf": в строке форматирования "%21s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "char **"
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(56,9): warning C4477: "printf": в строке форматирования "%14s" требуется аргумент типа "char *", но вариативный аргумент "2" имеет тип "char **"
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(57,9): warning C4477: "printf": в строке форматирования "%14s" требуется аргумент типа "char *", но вариативный аргумент "2" имеет тип "char **"
+C:\Users\bhj01\source\repos\lab2\lab2\lab2.cpp(58,9): warning C4477: "printf": в строке форматирования "%14s" требуется аргумент типа "char *", но вариативный аргумент "2" имеет тип "char **"
+  lab2.vcxproj -> C:\Users\bhj01\source\repos\lab2\Debug\lab2.exe
