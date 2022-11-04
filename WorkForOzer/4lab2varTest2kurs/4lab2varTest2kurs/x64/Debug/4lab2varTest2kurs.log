@@ -1,0 +1,6 @@
+﻿  4lab2varTest2kurs.cpp
+C:\Users\bhj01\source\repos\4lab2varTest2kurs\4lab2varTest2kurs\4lab2varTest2kurs.cpp(66,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\bhj01\source\repos\4lab2varTest2kurs\4lab2varTest2kurs\4lab2varTest2kurs.cpp(67,9): warning C4101: x: неиспользованная локальная переменная
+C:\Users\bhj01\source\repos\4lab2varTest2kurs\4lab2varTest2kurs\4lab2varTest2kurs.cpp(284,16): warning C4101: code2: неиспользованная локальная переменная
+C:\Users\bhj01\source\repos\4lab2varTest2kurs\4lab2varTest2kurs\4lab2varTest2kurs.cpp(284,9): warning C4101: code1: неиспользованная локальная переменная
+  4lab2varTest2kurs.vcxproj -> C:\Users\bhj01\source\repos\4lab2varTest2kurs\x64\Debug\4lab2varTest2kurs.exe
