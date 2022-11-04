@@ -1,7 +1,0 @@
-﻿  Lab7.cpp
-C:\Users\bhj01\source\repos\Lab7\Lab7\Lab7.cpp(7,13): warning C4244: return: преобразование "double" в "float", возможна потеря данных
-C:\Users\bhj01\source\repos\Lab7\Lab7\Lab7.cpp(50,10): warning C4244: return: преобразование "float" в "int", возможна потеря данных
-C:\Users\bhj01\source\repos\Lab7\Lab7\Lab7.cpp(88,12): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-C:\Users\bhj01\source\repos\Lab7\Lab7\Lab7.cpp(36): warning C4715: rec: значение возвращается не при всех путях выполнения
-C:\Users\bhj01\source\repos\Lab7\Lab7\Lab7.cpp(56): warning C4715: rec3: значение возвращается не при всех путях выполнения
-  Lab7.vcxproj -> C:\Users\bhj01\source\repos\Lab7\Debug\Lab7.exe

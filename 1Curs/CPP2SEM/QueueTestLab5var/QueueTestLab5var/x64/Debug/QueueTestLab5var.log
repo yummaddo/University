@@ -1,0 +1,6 @@
+﻿  QueueTestLab5var.cpp
+C:\Users\bhj01\source\repos\QueueTestLab5var\QueueTestLab5var\QueueTestLab5var.cpp(7,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\bhj01\source\repos\QueueTestLab5var\QueueTestLab5var\QueueTestLab5var.cpp(9,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\bhj01\source\repos\QueueTestLab5var\QueueTestLab5var\QueueTestLab5var.cpp(11,23): warning C4101: r_time_to_add_copy: неиспользованная локальная переменная
+C:\Users\bhj01\source\repos\QueueTestLab5var\QueueTestLab5var\QueueTestLab5var.cpp(12,25): warning C4101: r_time_to_dell_copy: неиспользованная локальная переменная
+  QueueTestLab5var.vcxproj -> C:\Users\bhj01\source\repos\QueueTestLab5var\x64\Debug\QueueTestLab5var.exe
