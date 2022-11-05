@@ -17,19 +17,35 @@
 char byte_number[20];
 char byte_gray[20];
 
+
+unsigned int getNum(int avarage, char str[], char color[], int eror = 0) {
+    unsigned int C = 0;
+
+    if (!eror) {
+        printf("%s%s%s",color,str, color);
+        scanf("%u", &C);
+        if (C > avarage) {
+            return getNum(avarage,str, color, 1);
+        }
+        return C;
+    }
+    else {
+        printf("\n%sERROR:%sЗначення більше ніж це можливо, введіть будь ласка правильні дані\n\n", RED, BLUE);
+        return getNum(avarage, str, color);
+    }
+
+}
+
+
 void process_one() {
     unsigned int C, E, I, P, KKK;
     unsigned int Data = 0;
-    printf("%sВведіть маску каналів                  (C < 16) :>>  ",RED);
-    scanf("%u", &C);
-    printf("%sВведіть маску зовнішнього перекривання (E < 2)  :>>  ",PURPLE);
-    scanf("%u", &E);
-    printf("%sВведіть маску внутршнього перекривання (I < 2)  :>>  ",BLACK);
-    scanf("%u", &I);
-    printf("%sВведіть маску програмного перекривання (P < 2)  :>>  ",WHITE);
-    scanf("%u", &P);
-    printf("%sВведіть маску зовнішнього перекривання (KKK < 8):>>  ",DBLUE);
-    scanf("%u", &KKK);
+    C = getNum(15, _strdup("Введіть маску каналів(C < 16) :>> "), _strdup(RED));
+    E = getNum(1, _strdup("Введіть маску зовнішнього перекривання (E < 2)  :>>  "), _strdup(PURPLE));
+    I = getNum(1, _strdup("Введіть маску внутршнього перекривання (I < 2)  :>>  "), _strdup(BLACK));
+    P = getNum(1, _strdup("Введіть маску програмного перекривання (P < 2)  :>>  "), _strdup(WHITE));
+    KKK = getNum(7, _strdup("Введіть маску зовнішнього перекривання (KKK < 8):>>  "), _strdup(DBLUE));
+    printf("%s C=%d  E=%d  I=%d  P=%d  KKK=%d\n", BLUE, C, E, I, P, KKK);
     Data |= (C & 15) << 12;
     Data |= (E & 1) << 11;
     Data |= (I & 1) << 10;
@@ -193,6 +209,8 @@ void SesionConvert() {
 
 
 
+
+
 void SesionGap() {
     unsigned int A = 0;
     unsigned int A1 = 0;
@@ -202,6 +220,7 @@ void SesionGap() {
     int t = 0, avarage = 0;
     printf("Введіть значення A(1 число < 2^16) : ");
     scanf("%u", &A);
+
     printf("Введіть значення B(2 число < 2^16) : ");
     scanf("%u", &B);
     printf("Введіть значення t(точка розриву < 17) : ");

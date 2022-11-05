@@ -1,6 +1,7 @@
 ﻿  TEST1LAB.cpp
-C:\Users\bhj01\source\repos\TEST1LAB\TEST1LAB\TEST1LAB.cpp(151,31): warning C4244: +=: преобразование "double" в "unsigned int", возможна потеря данных
-C:\Users\bhj01\source\repos\TEST1LAB\TEST1LAB\TEST1LAB.cpp(168,31): warning C4244: +=: преобразование "double" в "unsigned int", возможна потеря данных
-C:\Users\bhj01\source\repos\TEST1LAB\TEST1LAB\TEST1LAB.cpp(233,33): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-C:\Users\bhj01\source\repos\TEST1LAB\TEST1LAB\TEST1LAB.cpp(237,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-  TEST1LAB.vcxproj -> C:\Users\bhj01\source\repos\TEST1LAB\x64\Debug\TEST1LAB.exe
+C:\Users\bhj01\OneDrive\Документы\GitHub\University\WorkForOzer\4Lab2Curs9Var\TEST1LAB\TEST1LAB.cpp(27,15): warning C4018: >: несоответствие типов со знаком и без знака
+C:\Users\bhj01\OneDrive\Документы\GitHub\University\WorkForOzer\4Lab2Curs9Var\TEST1LAB\TEST1LAB.cpp(167,31): warning C4244: +=: преобразование "double" в "unsigned int", возможна потеря данных
+C:\Users\bhj01\OneDrive\Документы\GitHub\University\WorkForOzer\4Lab2Curs9Var\TEST1LAB\TEST1LAB.cpp(184,31): warning C4244: +=: преобразование "double" в "unsigned int", возможна потеря данных
+C:\Users\bhj01\OneDrive\Документы\GitHub\University\WorkForOzer\4Lab2Curs9Var\TEST1LAB\TEST1LAB.cpp(252,33): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+C:\Users\bhj01\OneDrive\Документы\GitHub\University\WorkForOzer\4Lab2Curs9Var\TEST1LAB\TEST1LAB.cpp(255,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  TEST1LAB.vcxproj -> C:\Users\bhj01\OneDrive\Документы\GitHub\University\WorkForOzer\4Lab2Curs9Var\x64\Debug\TEST1LAB.exe
