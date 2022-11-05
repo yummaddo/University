@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include <cstring>
 #include <Windows.h>
 #include <string.h>
 
@@ -21,28 +22,77 @@ char* MyRight(char* str, int zip_index) {
         str++;
     }
     str--;
+    int widht;
 
     //str -= num1;
+    HANDLE hWndConsole;
+    if (hWndConsole = GetStdHandle(-12))
+    {
+        CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+        if (GetConsoleScreenBufferInfo(hWndConsole, &consoleInfo))
+        {
+            widht = consoleInfo.srWindow.Right - consoleInfo.srWindow.Left + 1;
+            printf("Widht: %d\n", widht);
+        }
+        else
+            printf("Error: %d\n", GetLastError());
+    }
+    else
+        printf("Error: %d\n", GetLastError());
+
+
     int size = (num1 % zip_index == 0 ? num1 / zip_index : num1 / zip_index + 1) + num1 + 1;
     char* s = (char*)malloc(sizeof(char) * (size));
     *(s + size - 1) = '\0';
 
+    char* res = (char*)malloc(sizeof(char) * (widht + 1));
+    for (int i = 0; i < widht-zip_index; i++) {
+        *(res + i) = ' ';
+
+    }
+    *(res + widht) = '\0';
+
+    
+    int n_index = num1 / zip_index;
+    char *dump = (char*)malloc(sizeof(char)* (zip_index+2) );
+    char res1[1000] = "\0";
+
+    int position = 0;
     for (int i = 1; i <= size - 1; i++) {
         if (i == size - 1) {
-            *(s + i - 1) = '\n';
+            *(s + i- 1) = '\n';
+            strcat(res1, res);
+
         }
         else {
             if (i % (zip_index + 1) != 0) {
-                *(s + i - 1) = *(str);
+                if (n_index == 0) {
+                
+                    *(res + widht + position - zip_index + (num1-(num1/zip_index)*zip_index) ) = *(str);
+
+                }
+                else {
+                    *(res + widht + position - zip_index) = *(str);
+                }
+                *(s + i- 1) = *(str);
+                position++;
                 str--;
             }
             else {
-                *(s + i - 1) = '\n';
+                n_index--;
+
+                position = 0;
+                strcat(res1, res);
+                for (int itr = 0; itr < zip_index; itr++) {
+                    *(res + widht - 1 - itr) = ' ';
+                }
+                *(s + i- 1) = '\n';
             }
         }
     }
 
-    return s;
+
+    return res1;
 
 }
 
@@ -118,16 +168,12 @@ int main()
     printf("\nЗавдання 2, реалізація right(), для завершення сесії введіть . \n");
     char str1[50];
     int l;
-    do
-    {
-        printf("Строка\n>> ");
-        gets_s(str1);
 
-        if (strcmp(str1, ".") == 0) break;
-        printf("Веричина розподілу\n>> ");
-        scanf("%d", &l);
-        printf("\nРезультат роботи right(str,%d)\n%s\n", l, MyRight(str1, l));
-    } while (1);
+    printf("Строка\n>> ");
+    gets_s(str1);
+    printf("Веричина розподілу\n>> ");
+    scanf("%d", &l);
+    printf("\nРезультат роботи right(str,%d)\n%s\n", l, MyRight(str1, l));
 
     return 0;
 }
