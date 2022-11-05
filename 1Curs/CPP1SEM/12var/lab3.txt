@@ -1,0 +1,71 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <Windows.h>
+#include <math.h>
+
+
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    printf("A\n");
+    int x;
+    printf("введите Х\n");
+    scanf("%d", &x);
+    if (x > 3) {
+        printf("%f", (1 / (x * x) + x));
+    }
+    else if (x <= 3 && x > 2) {
+        printf("%f", (1 / (x * x * x )));
+    }
+    else if (x <= 0) {
+        float d = cos(x) + sin(x);
+        if (d < 0) {
+            d = -1 * d;
+        }
+        
+        printf("%f", d);
+    }
+
+    printf("\nБ\n");
+    printf("Введіть 3 числа\n");
+    int a1, a2, a3;
+    scanf("%d %d %d", &a1, &a2, &a3);
+    if (a1> a2 && a1 > a3) {
+        printf("Найбільше %d", a1);
+    }
+    
+    else if (a2 > a1 && a2 > a3) {
+        printf("Найбільше %d", a2);
+    }
+    else if (a3 > a2 && a3 > a1) {
+        printf("Найбільше %d", a3);
+    }
+    else {
+        printf("Числа рівні");
+    }
+
+    printf("\nВ\n");
+    printf("Введіть оцінку\n");
+    int num;
+    scanf("%d", &num);
+    switch (num)
+    {
+    case 2: 
+        printf("Ваша оцінка не задовільно");
+        break;
+    case 3:
+        printf("Ваша оцінка задовільно");
+        break;
+    case 4:
+        printf("Ваша оцінка добре");
+        break;
+    case 5:
+        printf("Ваша оцінка відмінно");
+        break;
+    default:
+        printf("Ваша оцінка неправильно введена");
+        break;
+
+    }
+}

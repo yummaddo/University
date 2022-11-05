@@ -1,0 +1,43 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <Windows.h>
+#include <math.h>
+
+
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    printf("завдання 1 \n");
+    int x;
+    float y;
+    scanf("%d", &x);
+    y = (x - 1.7) * sin(5 * x) + 5.3 * exp(-x);
+    
+    printf("%f", y);
+    printf("\nзавдання 2 \n");
+    printf("Введіть назву, одиницю виміру, кількість, ціну, рахунок для списання витрат(16 цифр), підпис(3 цифри)\n");
+    char name1[9], name2[9],name3[9], unit1[3], unit2[3], unit3[3];
+    int number[3], price[3];
+    char expense_account1[17];
+    char expense_account2[17];
+    char expense_account3[17];
+    int  signature[3];
+    printf("1 рядок\n");
+    scanf("%s %s %d %d %s %d", &name1, &unit1, &number[0], &price[0], &expense_account1, &signature[0]);
+    printf("2 рядок\n");
+    scanf("%s %s %d %d %s %d", &name2, &unit2, &number[1], &price[1], &expense_account2, &signature[1]);
+    printf("3 рядок\n");
+    scanf("%s %s %d %d %s %d", &name3, &unit3, &number[2], &price[2], &expense_account3, &signature[2]);
+
+
+    printf("-------------------------------------------------------------------------------------\n"); //55
+    printf("| назва    |одиниця виміру|кількість|ціна    |сума (*)      |рахунок витрат  |підпис|\n"); //55
+
+    printf("|%10s|%14s|%9d|%8d|%14d|%16s|%6d|\n", name1, unit1, number[0], price[0], price[0] * number[0], expense_account1, signature[0]);
+    printf("|%10s|%14s|%9d|%8d|%14d|%16s|%6d|\n", name2, unit2, number[1], price[1], price[1] * number[1], expense_account2, signature[1]);
+    printf("|%10s|%14s|%9d|%8d|%14d|%16s|%6d|\n", name3, unit3, number[2], price[2], price[2] * number[2], expense_account3, signature[2]);
+    printf("-------------------------------------------------------------------------------------\n"); //55
+
+    return 0;
+}

@@ -1,0 +1,53 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <Windows.h>
+#include <stdio.h>
+#include <ctime>
+
+int main()
+{
+	SetConsoleCP(1251); /* налаштувння таблиці кодування вводу*/
+	SetConsoleOutputCP(1251); /* налаштувння таблиці кодування виводу*/
+	srand(time(NULL));
+	int mass[20];
+	for (int i = 0;i < 20;i++) {
+		mass[i] = rand();
+	}
+	printf("Завдання А\n");
+	for (int i = 0;i < 20;i++) {
+		printf("%d ", mass[i]);
+	}
+	printf("\nЗавдання Б \n");
+	int ext[4] = { mass[0],mass[0],0,0 };
+	for (int i = 0;i < 20;i++) {
+		if (mass[i] < ext[0]) {
+			ext[0] = mass[i];
+			ext[2] = i;
+		}
+		if (mass[i] > mass[1]) {
+			ext[1] = mass[i];
+			ext[3] = i;
+		}
+	}
+	printf("Max %d index %d \nMin %d index %d \n", ext[1], ext[3], ext[0], ext[2]);
+	printf("\nЗавдання В \n");
+	printf("ВВедіть 20 елементів масиву \n");
+	int mass1[20];
+	for (int i = 0; i < 20; i++) {
+		scanf("%d",&mass1[i]);
+	}
+
+	int sum=1, numbers=0;
+	for (int i = 0; i < 20; i++) {
+		if (mass1[i] < 0) {
+			numbers += 1;
+			sum = sum * i;
+		}
+		else {
+			continue;
+		}
+	}
+	if (numbers == 0) {
+		sum = 0;
+	}
+	printf("Добуток номерів відємних елементів %d та їх кількість %d \n", sum, numbers);
+}

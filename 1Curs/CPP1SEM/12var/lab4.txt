@@ -1,0 +1,39 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <Windows.h>
+
+
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    printf("Завдання А\n");
+    printf("Введіть n\n");
+    int n;
+    scanf("%d",&n);
+    int x = 1, y = 1;
+    int sum = 0;
+    for (int i = 1; i <= n; i++) {
+        sum += y - x;
+        y = y + x;
+        x = 3 * x;
+    }
+    printf("Сума = %d\n",sum);
+    printf("Завдання Б\n");
+    //1сак=109л=1,499страйка
+    printf("Введіть початкове заначення в саках та кількість елементів таблиці\n");
+    
+    int start, num;
+    scanf("%d %d", &start,&num);
+    int it = 0;
+    printf("\n");
+    printf("------------------------------\n");
+    printf("|cак     |літр    |страйка   |\n");
+    printf("------------------------------\n");
+    while (it < num) {
+        printf("|%8d|%8d|%10.3f|\n", start ,start*109, (float)start * 1.499 );
+        start += 1;
+        it += 1;
+    }
+    printf("------------------------------\n");
+}
