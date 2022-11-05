@@ -23,12 +23,12 @@ char* MyRight(char* str, int zip_index) {
     str--;
 
     //str -= num1;
-    int size = (num1 % zip_index == 0 ? num1 / zip_index : num1 / zip_index + 1) + num1 +1;
+    int size = (num1 % zip_index == 0 ? num1 / zip_index : num1 / zip_index + 1) + num1 + 1;
     char* s = (char*)malloc(sizeof(char) * (size));
-    *(s + size-1) = '\0';
+    *(s + size - 1) = '\0';
 
-    for (int i = 1; i <= size-1; i++) {
-        if (i == size-1) {
+    for (int i = 1; i <= size - 1; i++) {
+        if (i == size - 1) {
             *(s + i - 1) = '\n';
         }
         else {
@@ -72,25 +72,25 @@ int main()
 
     for (i = 0; i < n; i++)
     {
-    
+
         *(mass1 + i) = rand() % 100;
-    
+
     }
 
 
     if (n >= 10) {
-        for (i = 0; i < n-10; i++)
+        for (i = 0; i < n - 10; i++)
         {
-            
+
             int local_max = 0;
             for (int inside_i = i; inside_i < i + 10; inside_i++) {
                 local_max += *(mass1 + inside_i);
             }
-        
+
             if (local_max >= max_el) {
 
                 max_el = local_max;
-                max_index = i+1;
+                max_index = i + 1;
 
             }
 
@@ -101,33 +101,34 @@ int main()
         printf("\nМасив немає неперервних ділянок розмірністю 10\n");
     }
 
-    for (int i = 0; i < n;i++) {
-        if (i >= max_index-1 && i < max_index+9) {
-            printf("%s%3d %s",RED,*(mass1+i),NONE);
+    for (int i = 0; i < n; i++) {
+        if (i >= max_index - 1 && i < max_index + 9) {
+            printf("%s%3d %s", RED, *(mass1 + i), NONE);
         }
         else {
             printf("%3d ", *(mass1 + i));
         }
-        if ((i+1) % 10 == 0) {
+        if ((i + 1) % 10 == 0) {
             printf("\n");
         }
- 
+
     }
 
-    printf("\nНайбільша неперервна ділянка з %d індексу по %d сума якої рівна %d\n\n", max_index, max_index+9, max_el);
+    printf("\nНайбільша неперервна ділянка з %d індексу по %d сума якої рівна %d\n\n", max_index, max_index + 9, max_el);
     printf("\nЗавдання 2, реалізація right(), для завершення сесії введіть . \n");
-    printf("Введіть строку та значення відступу (name 4) \n");
     char str1[50];
     int l;
     do
     {
-        printf(">> ");
-        scanf("%s", &str1);
+        printf("Строка\n>> ");
+        gets_s(str1);
+
         if (strcmp(str1, ".") == 0) break;
+        printf("Веричина розподілу\n>> ");
         scanf("%d", &l);
-        printf("\nРезультат роботи right(str,%d)\n%s\n",l ,MyRight(str1, l));
+        printf("\nРезультат роботи right(str,%d)\n%s\n", l, MyRight(str1, l));
     } while (1);
-    
+
     return 0;
 }
 
