@@ -27,17 +27,34 @@ char* MyRight(char* str, int zip_index) {
     char* s = (char*)malloc(sizeof(char) * (size));
     *(s + size - 1) = '\0';
 
+    int tic_index = zip_index;
+    int full_slides = num1 / zip_index;
+    int last_zip_index = num1 % zip_index;
+
+
     for (int i = 1; i <= size - 1; i++) {
         if (i == size - 1) {
             *(s + i - 1) = '\n';
         }
         else {
-            if (i % (zip_index + 1) != 0) {
-                *(s + i - 1) = *(str);
-                str--;
+            if (i % (zip_index + 1) != 0) { 
+                *(s + i - 1) = *(str-tic_index+1);
+                tic_index--;
             }
             else {
+                full_slides--;
+
+                if (full_slides == 0) {
+                    tic_index = last_zip_index;
+                }
+                else {
+                    tic_index = zip_index;
+                }
+
+
+                str -= zip_index;
                 *(s + i - 1) = '\n';
+
             }
         }
     }
@@ -115,19 +132,14 @@ int main()
     }
 
     printf("\nНайбільша неперервна ділянка з %d індексу по %d сума якої рівна %d\n\n", max_index, max_index + 9, max_el);
-    printf("\nЗавдання 2, реалізація right(), для завершення сесії введіть . \n");
+    printf("\nЗавдання 2, реалізація right() \n");
     char str1[50];
     int l;
-    do
-    {
-        printf("Строка\n>> ");
-        gets_s(str1);
-
-        if (strcmp(str1, ".") == 0) break;
-        printf("Веричина розподілу\n>> ");
-        scanf("%d", &l);
-        printf("\nРезультат роботи right(str,%d)\n%s\n", l, MyRight(str1, l));
-    } while (1);
+    printf("Строка\n>> ");
+    gets_s(str1);
+    printf("Веричина розподілу\n>> ");
+    scanf("%d", &l);
+    printf("\nРезультат роботи right(str,%d)\n%s\n", l, MyRight(str1, l));
 
     return 0;
 }
