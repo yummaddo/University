@@ -119,7 +119,11 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     HWND hWnd = GetConsoleWindow();
-    system("mode con cols=300 lines=90");
+    HWND hwnd;
+    TCHAR Title[1024];
+    GetConsoleTitle(Title, 1024); // Узнаем имя окна
+    hwnd = FindWindow(NULL, Title); // Узнаем hwnd окна
+    MoveWindow(hwnd, 0, 0, 1800, 1000, TRUE);
 
     system("color 0A");
     int x, y, R;
