@@ -69,7 +69,7 @@ void Draw_the_ATL(HWND hWnd, int _axis_y = 25, int _axis_x = 1000, int R = 0) {
         LineTo(hDC, delta_x_to_Y_AXIS + i, delta_y_to_X_AXIS + y);
         MoveToEx(hDC, delta_x_to_Y_AXIS + i, delta_y_to_X_AXIS + y, &op);
         
-        Sleep(5);
+        Sleep(54.5);
     }
 
     ReleaseDC(hWnd, hDC);

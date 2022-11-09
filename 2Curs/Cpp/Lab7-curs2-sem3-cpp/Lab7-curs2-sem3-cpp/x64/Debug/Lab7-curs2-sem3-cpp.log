@@ -11,5 +11,6 @@ C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\Lab7-curs
 C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(69,39): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
 C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(70,64): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
 C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(70,41): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(72,15): warning C4244: аргумент: преобразование "double" в "DWORD", возможна потеря данных
 C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(48,17): warning C4101: ps: неиспользованная локальная переменная
   Lab7-curs2-sem3-cpp.vcxproj -> C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\Lab7-curs2-sem3-cpp\x64\Debug\Lab7-curs2-sem3-cpp.exe
