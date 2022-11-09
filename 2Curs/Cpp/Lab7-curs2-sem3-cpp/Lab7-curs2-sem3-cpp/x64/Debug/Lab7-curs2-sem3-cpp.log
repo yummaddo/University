@@ -1,0 +1,15 @@
+﻿  Lab7-curs2-sem3-cpp.cpp
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(36,23): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(37,21): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(37,43): warning C4552: "+": результат выражения не используется
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(40,46): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(41,44): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(59,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(61,40): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(64,18): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(69,62): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(69,39): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(70,64): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(70,41): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+D:\VSprogects\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp\Lab7-curs2-sem3-cpp.cpp(48,17): warning C4101: ps: неиспользованная локальная переменная
+  Lab7-curs2-sem3-cpp.vcxproj -> D:\VSprogects\Lab7-curs2-sem3-cpp\x64\Debug\Lab7-curs2-sem3-cpp.exe
