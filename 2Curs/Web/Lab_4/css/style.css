@@ -1,0 +1,252 @@
+/* Keyframes */
+@keyframes pinBeforeWave {
+  from {
+
+    width: 0;
+    height: 0;
+    margin-left: -2px;
+    margin-top: -2px;
+  }
+  to {
+
+    width: 40px;
+    height: 40px;
+    margin-left: -21px;
+    margin-top: -21px;
+    opacity: 0;
+  }
+}
+@keyframes pinAfterWave {
+  from {
+    width: 0;
+    height: 0;
+    margin-left: -2px;
+    margin-top: -2px;
+  }
+  to {
+    width: 66px;
+    height: 66px;
+    margin-left: -34px;
+    margin-top: -34px;
+    opacity: 0;
+  }
+}
+
+@keyframes pinColorDelta  {
+  0% {background-color: #5BD6DC;}
+  5% {background-color: #3DCBD2;}
+  10% {background-color: #3AC1C8;}
+  15% {background-color: #37B7BE;}
+  20% {background-color: #34AEB4;}
+  25% {background-color: #31A4AA;}
+  30% {background-color: #2E9AA0;}
+  35% {background-color: #2C9196;}
+  40% {background-color: #29878C;}
+  45% {background-color: #267D82;}
+  50% {background-color: #237478;}
+  55% {background-color: #267D82;}
+  60% {background-color: #29878C;}
+  65% {background-color: #2C9196;}
+  70% {background-color: #2E9AA0;}
+  75% {background-color: #31A4AA;}
+  80% {background-color: #34AEB4;}
+  85% {background-color: #37B7BE;}
+  90% {background-color: #3AC1C8;}
+  95% {background-color: #3DCBD2;}
+  100% {background-color: #5BD6DC;}
+}
+
+
+
+/* General */
+
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1em;
+  color: #242c4b;
+  background-color: #a3c7c8;
+  background-image: url(../img/bg.png);
+}
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 50px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+img {
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  padding: auto;
+  width: 140px;
+  height: 120px;
+}
+/* Concert Map */
+
+#concert-map {
+  width: 790px;
+  height: 540px;
+  position: relative;
+  margin: 50px auto;
+  background-image: url(../img/map.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: thick double #17434b;
+}
+.pin {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #7bd3d7;
+  position: absolute;
+  cursor: pointer;
+  animation: pinColorDelta 2s ease-in infinite;
+}
+
+.pin:hover {
+  animation-play-state: paused;
+
+}
+
+.pin.Lviv {
+  top: 186px;
+  left: 106px;
+}
+.pin.Odesa {
+  left: 375px;
+  top: 409px;
+}
+.pin.Kyiv {
+  left: 381px;
+  top: 161px;
+}
+.pin.Poltava {
+  left: 539px;
+  top: 211px;
+}
+.pin .town {
+  display: block;
+  block-size: auto;
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  color: #151212;
+  text-shadow: 1px 1px 0px #79a786;
+}
+.pin:before,
+.pin:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  border-radius: 50%;
+  border: 1px solid #30336e;
+  width: 0;
+  height: 0;
+  margin-left: -2px;
+  margin-top: -2px;
+}
+.pin:before {
+  animation: pinBeforeWave 1s ease-in infinite;
+}
+.pin:after {
+  animation: pinAfterWave 1s ease-in infinite;
+}
+.pin:hover:before,
+.pin:hover:after {
+  animation-play-state: paused;
+}
+.pin .popover {
+  transform: rotateY(90deg);
+  transition: all 0.9s ease-in-out 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  min-width: 170px;
+  height: auto;
+  background: #486160;
+  padding: 10px;
+  bottom: 22px;
+  left: -8px;
+  box-shadow: 4px 4px 0px 0px #1527214a;
+  z-index: 3;
+}
+.pin .popover:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #aee9ca;
+  position: absolute;
+  bottom: -5px;
+  -webkit-transform: rotateZ(45deg);
+  -o-transform: rotateZ(45deg);
+  -moz-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+.pin:hover .popover {
+  transform: rotateY(0deg);
+  transition-delay: 0s;
+  visibility: visible;
+  opacity: 1;
+}
+.pin .popover .button {
+  text-decoration: none;
+  display: inline-block;
+  width: 140px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 45px;
+  margin: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: #1f4c45;
+  background: white;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+  transition: .3s;
+}
+.pin .popover .button:hover {
+  background: #2EE59D;
+  box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+  color: white;
+  transform: translateY(-7px);
+}
+footer a {
+  background-image: url(../img/sprites.png);
+  background-repeat: no-repeat;
+  height: 98px;
+  width: 100px;
+  display: inline-block;
+  margin-left: auto;
+  transition: all 1s ease-out;
+}
+footer a.facebook {
+  background-position: left top;
+}
+footer a.twitter {
+  background-position: -100px top;
+}
+footer a.youtube {
+  background-position: -200px top;
+}
+footer a.instagram {
+  background-position: -300px top;
+}
+footer a.linkedin {
+  background-position: -400px top;
+}
+footer a.tumblr {
+  background-position: -500px top;
+}
+footer a.google {
+  background-position: -600px top;
+}
+footer a:hover {
+  background-position-y: bottom;
+}
