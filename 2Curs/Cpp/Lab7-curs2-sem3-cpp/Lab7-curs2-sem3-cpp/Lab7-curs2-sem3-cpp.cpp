@@ -5,8 +5,8 @@
 #include <thread>
 
 
-int delta_y_to_X_AXIS = 300;
-int delta_x_to_Y_AXIS = 600;
+int delta_y_to_X_AXIS = 400;
+int delta_x_to_Y_AXIS = 200;
 int Step_int_gerc = 54;
 int Step_int_numbers = 25;
 
@@ -61,15 +61,16 @@ void Draw_the_ATL(HWND hWnd, int _axis_y = 25, int _axis_x = 1000, int R = 0) {
     MoveToEx(hDC, 0, delta_x_to_Y_AXIS + y, &op);
 
     float delat_y = (float)Step_int_numbers / (float)Axis_y;
-    for (float i = -delta_x_to_Y_AXIS; i < 1000; i += 1)
+    for (float i = -delta_x_to_Y_AXIS; i < 2000; i += 2)
     {
         x = i * (Axis_x / 1000);
-        y = 50 * (cos(x / 10) + R * cos(x / 5)) + 150;
-        y = y * delat_y; // підганяємо лінію до потрібного значення в залежності від розмірності
+        y = (int)(50 * (cos(x / 10) + R * cos(x / 5)) + 150);
+        y = (int)( (int)y / 30 * 30 * delat_y); // підганяємо лінію до потрібного значення в залежності від розмірності
+
         LineTo(hDC, delta_x_to_Y_AXIS + i, delta_y_to_X_AXIS + y);
         MoveToEx(hDC, delta_x_to_Y_AXIS + i, delta_y_to_X_AXIS + y, &op);
         
-        Sleep(54.5);
+        Sleep(5.45);
     }
 
     ReleaseDC(hWnd, hDC);
