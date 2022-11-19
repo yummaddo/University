@@ -5,37 +5,62 @@
 #include <stdio.h>
 #include <conio.h>
 #include <intrin.h>
+#include <thread>
+#include <math.h>
 
 
 
-bool path_pointer  []  = {false, false, false, false};
+int MAX_Y = 1000;
+int MAX_X = 800;
+float speed = 3.0f;
+
+POINT cursor;
+
+// top right bottom left
+
+bool path_pointer  []  = {false, true, false, false};
 
 using namespace std;
 void draw(HWND hwnd, HDC hdc);
 void setConsoleSize();
 
+HWND hwnd;
+HDC hdc;
+
+bool EXIT_STATUS = false;
+bool HOOK_STATUS = false;
 
 
-
-
+class Point{
+public:
+    float x,y;
+    Point(float _x, float _y) {x = _x; y = _y;}
+};
 
 
 class Mesh {
     public:
-        int x, y;
-        float size = 100;
+        double x, y;
+        double size = 100;
 
 
-        Mesh(int _x=0, int _y=0) {
+        Mesh(double _x=0, double _y=0) {
             x = _x;
             y = _y;
         }
         
-        void set_size(float _size) { size = _size; }
+        void set_size(double _size) { size = _size; }
 
-        void set_position(int _x, int _y) { x = _x; y = _y; }
+        void set_position(double _x, double _y) {
+            if (_x <= MAX_X) {
+                x = _x;
+            }
+            if (_y <= MAX_Y) {
+                y = _y;
+            }
+        }
 
-        void set(int _x = NULL, int _y = NULL, float _size = NULL) {
+        void set(double _x = NULL, double _y = NULL, double _size = NULL) {
             if (_x != NULL && _y != NULL) {
                 set_position(_x, _y);
             }
@@ -49,12 +74,48 @@ class Mesh {
 
 };
 
+void ClearScreen()
+{
+    HANDLE                     hStdOut;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD                      count;
+    DWORD                      cellCount;
+    COORD                      homeCoords = { 0, 0 };
+
+    hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hStdOut == INVALID_HANDLE_VALUE) return;
+
+    /* Get the number of cells in the current buffer */
+    if (!GetConsoleScreenBufferInfo(hStdOut, &csbi)) return;
+    cellCount = csbi.dwSize.X * csbi.dwSize.Y;
+
+    /* Fill the entire buffer with spaces */
+    if (!FillConsoleOutputCharacter(
+        hStdOut,
+        (TCHAR)' ',
+        cellCount,
+        homeCoords,
+        &count
+    )) return;
+
+    /* Fill the entire buffer with the current colors and attributes */
+    if (!FillConsoleOutputAttribute(
+        hStdOut,
+        csbi.wAttributes,
+        cellCount,
+        homeCoords,
+        &count
+    )) return;
+
+    /* Move the cursor home */
+    SetConsoleCursorPosition(hStdOut, homeCoords);
+}
 
 
-class Player: public Mesh
+class Player : public Mesh
 {
 
-public: 
+public:
     Player() {
     }
 
@@ -62,7 +123,11 @@ public:
         Rectangle(GetDC(console), x, y, x + size, y + size);
     }
 
+
 private:
+
+
+
 
 
 };
@@ -75,17 +140,39 @@ Player rectangle = Player();
 
 
 
-void main()
-{
+
+
+void main(){
     SetConsoleTitle(L"Simple Rectangle Drawing");
-    HWND hwnd = GetConsoleWindow();
-    HDC hdc = GetDC(hwnd);
-    setConsoleSize(); // задание размеров консоли
+    hwnd = GetConsoleWindow();
+    hdc = GetDC(hwnd);
+    SetWindowPos(hwnd, 0, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+    //setConsoleSize(); // задание размеров консоли
     Sleep(100);
-    int iKey = 1;
-    rectangle.set(10, 10, 100);
-    Sleep(10);
-    ReleaseDC(hwnd, hdc); //освобождаем дескрипторы консоли
+
+    rectangle.set(100, 100, 100);
+
+    ReleaseDC(hwnd, hdc);
+
+
+
+    while (!EXIT_STATUS) {
+        draw(hwnd, hdc);
+        ClearScreen();
+        if (path_pointer[1]) {
+            rectangle.set_position(rectangle.x + speed, rectangle.y);
+        }
+        else if (path_pointer[0]) {
+            rectangle.set_position(rectangle.x, rectangle.y- speed);
+
+        }
+        Sleep(2);
+    
+    }
+
+
+//освобождаем дескрипторы консоли
 }
 
 // Функция рисования. Помещайте сюда всю графику
