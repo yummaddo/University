@@ -1,0 +1,3 @@
+﻿  Drivers.cpp
+D:\VSprogects\Drivers\Drivers.cpp(24,26): warning C4101: pmc: неиспользованная локальная переменная
+  Drivers.vcxproj -> D:\VSprogects\Drivers\x64\Debug\Drivers.exe

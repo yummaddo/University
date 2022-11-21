@@ -1,0 +1,24 @@
+﻿  Zav2.cpp
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(16,66): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(16,55): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(16,44): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(17,93): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(17,74): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(17,55): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(23,28): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(24,28): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(31,28): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(32,28): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(39,28): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\VecFunctions.h(40,28): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(29,44): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(41,23): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(41,20): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(41,40): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(41,33): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(73,43): warning C4244: *=: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(74,29): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(80,29): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(80,19): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\Zav2.cpp(80,18): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  Zav2.vcxproj -> C:\Users\bhj01\OneDrive\Рабочий стол\KR\1\RenderingConsole\x64\Debug\Zav2.exe
