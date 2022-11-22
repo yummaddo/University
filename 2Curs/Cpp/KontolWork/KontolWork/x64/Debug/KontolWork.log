@@ -1,7 +1,0 @@
-﻿  KontolWork.cpp
-C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\KontolWork\KontolWork\KontolWork.cpp(123,53): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\KontolWork\KontolWork\KontolWork.cpp(123,43): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\KontolWork\KontolWork\KontolWork.cpp(123,38): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\KontolWork\KontolWork\KontolWork.cpp(123,35): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\KontolWork\KontolWork\KontolWork.cpp(145,12): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
-  KontolWork.vcxproj -> C:\Users\bhj01\OneDrive\Документы\GitHub\University\2Curs\Cpp\KontolWork\x64\Debug\KontolWork.exe
