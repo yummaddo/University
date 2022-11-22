@@ -30,7 +30,12 @@ int EXIT_STATUS = 0;
 int EXIT_REGISTER_STATUS = 0;
 int EXIT_INFORMATION_STATUS = 0;
 
+// point of error massage
 int MAIN_MENU_STATUS = -1;
+int REGISTER_MENU_STATUS = -1;
+int INFORMATION_MENU_STATUS = -1;
+
+
 
 
 // colors typing
@@ -146,18 +151,28 @@ void REGISTER_MENU(HANDLE console, int INPUT_ERROR){
     }
     set_cursore_pos(console,0,27);
     printf("\\-REGISTER-MENU-------------------------------------------------------------------------------------------/");
+    if (INPUT_ERROR == 1){
+        DRAW_THE_ERROR(console);
+    }
+    DRAW_THE_COMMAND_LIST(console);
+    DRAW_THE_INPUT_CURSORE(console);
 }
 
-void DRAW_THE_COMMAND_LIST(HANDLE console){
+void DRAW_THE_INPUT_CURSORE(HANDLE console){
+    set_cursore_pos(console,10,10);
+    printf("%sTo execute the command, enter its index in the list%s",WHITE,RESET);
+    set_cursore_pos(console,10,11);
+    printf("%sSelect a command to execute >>: %s",WHITE,RESET);
+}
+
+void REGISTER_DRAW_THE_COMMAND_LIST(HANDLE console){
     set_cursore_pos(console,3,3);
     printf("%sCOMMANDS%s",RED,RESET);
     set_cursore_pos(console,3,4);
     for (int i = 0; i < 4; i++){
         set_cursore_pos(console,3,4+i);
-        printf("%s[%d] %s %s",WHITE, i ,MainMenu[i][0] , RESET);
+        printf("%s[%d] %s %s",WHITE, i ,RegisterMenu[i][0] , RESET);
     }
-    DRAW_THE_INPUT_MESSAGE(console);
-    DRAW_THE_INPUT_CURSORE(console);
 }
 // end area # REGISTER MENU 
 //-------------------------------------------------------------------------------------------------
@@ -209,8 +224,41 @@ void RegisterSesion(){
 }
 
 void RegisterSesionProces(){
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    EXIT_REGISTER_STATUS = 1;
+
+     if (REGISTER_MENU_STATUS == -1){
+        REGISTER_MENU(console,REGISTER_MENU_STATUS);
+
+    } else if (MAIN_MENU_STATUS == 0) {
+        REGISTER_MENU(console,1);
+
+    }
+
+    int answer = GetMainCommand();
+
+    if (answer == 0 ){
+        REGISTER_MENU_STATUS = -1;
+        
+    } else if (answer == 1) {
+        REGISTER_MENU_STATUS = -1;
+
+
+
+    } else if (answer == 2) {
+        REGISTER_MENU_STATUS = -1;
+
+    
+    } else if (answer == 3) {
+        EXIT_REGISTER_STATUS = 1;
+        REGISTER_MENU_STATUS = -1;
+
+
+    } else {
+        
+
+    }
+
 }
 
 
@@ -248,10 +296,6 @@ int GetMainCommand(){
 void Sesion(){
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     cls(console);
-        
-    int link = GetMainCommand(console);
-
-
 
     if (MAIN_MENU_STATUS == -1){
         MAINMENU(console,0);
