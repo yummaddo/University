@@ -17,6 +17,20 @@ const char MainMenu[3][1][30] = {
     {"Information by the date"},
     {"Exit"}
 };
+const char RegisterMenu[4][1][30] = {
+    {"Add key combination"},
+    {"Delete key combination"},
+    {"View all"},
+    {"Exit"}
+};
+
+
+// exit point
+int EXIT_STATUS = 0;
+int EXIT_REGISTER_STATUS = 0;
+int EXIT_INFORMATION_STATUS = 0;
+
+int MAIN_MENU_STATUS = -1;
 
 
 // colors typing
@@ -37,13 +51,19 @@ const char MainMenu[3][1][30] = {
 // .h
 
 void LEFT_RIGHT_BORGER(HANDLE console, int col);
-void MAINMENU(HANDLE console);
+void DRAW_THE_INPUT_CURSORE(HANDLE console);
+void DRAW_THE_INPUT_MESSAGE(HANDLE console);
+void DRAW_THE_COMMAND_LIST(HANDLE console);
+void DRAW_THE_ERROR(HANDLE console);
+void MAINMENU(HANDLE console,int INPUT_ERROR );
+
 
 void set_cursore_pos(HANDLE console, int x, int y);
 void cls(HANDLE hConsole);
 void setConsoleSize(int x, int y);
 
-int GetMainCommand(HANDLE console);
+
+int GetMainCommand();
 
 //
 //-------------------------------------------------------------------------------------------------
@@ -54,8 +74,6 @@ int GetMainCommand(HANDLE console);
 //                                        INTERFAISE DRAW
 //
 //-------------------------------------------------------------------------------------------------
-
-
 //start area # MAIN MENU 
 
 void LEFT_RIGHT_BORGER(HANDLE console, int col){
@@ -85,7 +103,6 @@ void DRAW_THE_INPUT_CURSORE(HANDLE console){
     printf("%sSelect a command to execute >>: %s",WHITE,RESET);
 }
 
-
 void DRAW_THE_COMMAND_LIST(HANDLE console){
     set_cursore_pos(console,3,3);
     printf("%sCOMMANDS%s",RED,RESET);
@@ -96,36 +113,58 @@ void DRAW_THE_COMMAND_LIST(HANDLE console){
     }
 }
 
+void DRAW_THE_ERROR(HANDLE console){
+    set_cursore_pos(console,15,9);
+    printf("COMAND DONST FOUND");
+}
 
+void MAINMENU(HANDLE console, int INPUT_ERROR){
 
-void MAINMENU(HANDLE console){
     set_cursore_pos(console,0,1);
-    printf("/--------------------------------------------------------------------------------------------------------\\");
+    printf("/-MAIN-MENU-----------------------------------------------------------------------------------------------\\");
     for (int i = 2; i < 27; i++ ){
         LEFT_RIGHT_BORGER(console, i);
     }
     set_cursore_pos(console,0,27);
 
     printf("\\--------------------------------------------------------------------------------------------------------/");
+    if (INPUT_ERROR == 1){
+        DRAW_THE_ERROR(console);
+    }
     DRAW_THE_COMMAND_LIST(console);
     DRAW_THE_INPUT_MESSAGE(console);
     DRAW_THE_INPUT_CURSORE(console);
 }
 
 // end area # MAIN MENU 
+//-------------------------------------------------------------------------------------------------
+// start area # REGISTER MENU 
+void REGISTER_MENU(HANDLE console, int INPUT_ERROR){
+    printf("/--------------------------------------------------------------------------------------------------------\\");
+    for (int i = 2; i < 27; i++ ){
+        LEFT_RIGHT_BORGER(console, i);
+    }
+    set_cursore_pos(console,0,27);
+    printf("\\-REGISTER-MENU-------------------------------------------------------------------------------------------/");
+}
 
-
-
-
-
-
-
+void DRAW_THE_COMMAND_LIST(HANDLE console){
+    set_cursore_pos(console,3,3);
+    printf("%sCOMMANDS%s",RED,RESET);
+    set_cursore_pos(console,3,4);
+    for (int i = 0; i < 4; i++){
+        set_cursore_pos(console,3,4+i);
+        printf("%s[%d] %s %s",WHITE, i ,MainMenu[i][0] , RESET);
+    }
+    DRAW_THE_INPUT_MESSAGE(console);
+    DRAW_THE_INPUT_CURSORE(console);
+}
+// end area # REGISTER MENU 
 //-------------------------------------------------------------------------------------------------
 //
 //                                        UTILS
 //
 //-------------------------------------------------------------------------------------------------
-
 void set_cursore_pos(HANDLE hStdOut, int x, int y){
     COORD set = {(short)x,(short)y};
     SetConsoleCursorPosition(hStdOut, set);
@@ -143,7 +182,6 @@ void cls(HANDLE hConsole)
     // символьных ячеек в буфере консоли
     FillConsoleOutputCharacter(hConsole,(TCHAR)' ',dwConSize, coordScreen, &cCharsWritten);
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes,dwConSize, coordScreen, &cCharsWritten);
-    SetConsoleCursorPosition(hConsole, coordScreen);
 }
 
 void setConsoleSize(int x = 400, int y = 600) // Задание размеров окна консоли row = 106 col = 29
@@ -157,40 +195,100 @@ void setConsoleSize(int x = 400, int y = 600) // Задание размеров
     system("color 0A");
 }
 
+//-------------------------------------------------------------------------------------------------
+//
+//                                     REGISTER SESION
+//
+//-------------------------------------------------------------------------------------------------
+
+void RegisterSesion(){
+    while (!EXIT_REGISTER_STATUS)
+    {
+        RegisterSesionProces();
+    }
+}
+
+void RegisterSesionProces(){
+
+    EXIT_REGISTER_STATUS = 1;
+}
+
+
+//-------------------------------------------------------------------------------------------------
+//
+//                                     INFORMATION SESION
+//
+//-------------------------------------------------------------------------------------------------
+
+void InformationSesion(){
+    while (!EXIT_INFORMATION_STATUS )
+    {
+        InformationSesionProces();
+    }
+}
+
+void InformationSesionProces(){
+
+    EXIT_INFORMATION_STATUS = 1;
+}
 
 //-------------------------------------------------------------------------------------------------
 //
 //                                     COMANDS ZONE
 //
 //-------------------------------------------------------------------------------------------------
-
-
-
-
-
-int GetMainCommand(HANDLE console){
-    cls(console);
-    MAINMENU(console);
-
+int GetMainCommand(){
     int answer;
     printf("%s",RED);
     scanf("%d", &answer);
     printf("%s",RESET);
     return answer;
+}
+
+void Sesion(){
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    cls(console);
+        
+    int link = GetMainCommand(console);
+
+
+
+    if (MAIN_MENU_STATUS == -1){
+        MAINMENU(console,0);
+    } else if (MAIN_MENU_STATUS == 0) {
+        MAINMENU(console,1); 
+    }
+
+    int answer = GetMainCommand();
+
+    if (answer == 0 ){
+        MAIN_MENU_STATUS = -1;
+        EXIT_REGISTER_STATUS = 0;
+        RegisterSesion();
+
+    } else if ( answer == 1) {
+        MAIN_MENU_STATUS = -1;
+        EXIT_INFORMATION_STATUS = 0;
+        InformationSesion();
+
+    } else if ( answer == 2) {
+        MAIN_MENU_STATUS = -1;
+        EXIT_STATUS = 1;
+
+
+    } else {
+        MAIN_MENU_STATUS = 0;
+
+    }
 
 }
 
 
-
-
-
-
 int main(void) {
     setConsoleSize();
-    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    
-    int link = GetMainCommand(console);
-
+    while (!EXIT_STATUS){   
+        Sesion();
+    }
 
     system("pause");
 }
