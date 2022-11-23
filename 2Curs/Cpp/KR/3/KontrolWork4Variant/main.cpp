@@ -24,6 +24,12 @@ const char RegisterMenu[4][1][30] = {
     {"Exit"}
 };
 
+const char InformationMenu[3][1][35] = {
+    {"Viev all"},
+    {"Viev by index int register data"},
+    {"Exit"}
+};
+
 
 // exit point
 int EXIT_STATUS = 0;
@@ -35,7 +41,8 @@ int MAIN_MENU_STATUS = -1;
 int REGISTER_MENU_STATUS = -1;
 int INFORMATION_MENU_STATUS = -1;
 
-
+// add string 
+char execute_add_string[50]; 
 
 
 // colors typing
@@ -54,22 +61,42 @@ int INFORMATION_MENU_STATUS = -1;
 //-------------------------------------------------------------------------------------------------
 //
 // .h
-
+//-------
 void LEFT_RIGHT_BORGER(HANDLE console, int col);
 void DRAW_THE_INPUT_CURSORE(HANDLE console);
 void DRAW_THE_INPUT_MESSAGE(HANDLE console);
 void DRAW_THE_COMMAND_LIST(HANDLE console);
 void DRAW_THE_ERROR(HANDLE console);
 void MAINMENU(HANDLE console,int INPUT_ERROR );
-
-
+//-------
 void set_cursore_pos(HANDLE console, int x, int y);
 void cls(HANDLE hConsole);
 void setConsoleSize(int x, int y);
-
-
+//-------
 int GetMainCommand();
+void Sesion();
+//-------
+void RegisterSesionProces();
+void RegisterSesion();
+void REGISTER_DRAW_THE_COMMAND_LIST(HANDLE console);
+void REGISTER_MENU(HANDLE console, int INPUT_ERROR);
+//-------
+void ADD_MSG(HANDLE console);
+void ADD_ELEMENT_RENDER(HANDLE console);
+//-------
+void DELETE_MSG(HANDLE console);
+void DELETE_ELEMENT_RENDER(HANDLE console);
+//-------
+void VIEV_MSG(HANDLE console);
+void VIEV_ELEMENT_RENDER(HANDLE console);
+void VIEV_REGISTER_DATA(HANDLE console);
+//-------
+void InformationSesionProces();
+void InformationSesion();
 
+
+//-------
+void render_add_proces(HANDLE console);
 //
 //-------------------------------------------------------------------------------------------------
 
@@ -80,7 +107,6 @@ int GetMainCommand();
 //
 //-------------------------------------------------------------------------------------------------
 //start area # MAIN MENU 
-
 void LEFT_RIGHT_BORGER(HANDLE console, int col){
     set_cursore_pos(console,0,col);
     printf("|");
@@ -140,12 +166,13 @@ void MAINMENU(HANDLE console, int INPUT_ERROR){
     DRAW_THE_INPUT_MESSAGE(console);
     DRAW_THE_INPUT_CURSORE(console);
 }
-
 // end area # MAIN MENU 
 //-------------------------------------------------------------------------------------------------
 // start area # REGISTER MENU 
 void REGISTER_MENU(HANDLE console, int INPUT_ERROR){
+    set_cursore_pos(console,0,1);
     printf("/--------------------------------------------------------------------------------------------------------\\");
+
     for (int i = 2; i < 27; i++ ){
         LEFT_RIGHT_BORGER(console, i);
     }
@@ -154,15 +181,8 @@ void REGISTER_MENU(HANDLE console, int INPUT_ERROR){
     if (INPUT_ERROR == 1){
         DRAW_THE_ERROR(console);
     }
-    DRAW_THE_COMMAND_LIST(console);
+    REGISTER_DRAW_THE_COMMAND_LIST(console);
     DRAW_THE_INPUT_CURSORE(console);
-}
-
-void DRAW_THE_INPUT_CURSORE(HANDLE console){
-    set_cursore_pos(console,10,10);
-    printf("%sTo execute the command, enter its index in the list%s",WHITE,RESET);
-    set_cursore_pos(console,10,11);
-    printf("%sSelect a command to execute >>: %s",WHITE,RESET);
 }
 
 void REGISTER_DRAW_THE_COMMAND_LIST(HANDLE console){
@@ -175,6 +195,33 @@ void REGISTER_DRAW_THE_COMMAND_LIST(HANDLE console){
     }
 }
 // end area # REGISTER MENU 
+//-------------------------------------------------------------------------------------------------
+
+void INFORMATION_MENU(HANDLE console, int INPUT_ERROR){
+    set_cursore_pos(console,0,1);
+    printf("/--------------------------------------------------------------------------------------------------------\\");
+
+    for (int i = 2; i < 27; i++ ){
+        LEFT_RIGHT_BORGER(console, i);
+    }
+    set_cursore_pos(console,0,27);
+    printf("\\-INFORMATION-MENU----------------------------------------------------------------------------------------/");
+    if (INPUT_ERROR == 1){
+        DRAW_THE_ERROR(console);
+    }
+    INFORAMTION_DRAW_THE_COMMAND_LIST(console);
+    DRAW_THE_INPUT_CURSORE(console);
+}
+
+void INFORAMTION_DRAW_THE_COMMAND_LIST(HANDLE console){
+    set_cursore_pos(console,3,3);
+    printf("%sCOMMANDS%s",RED,RESET);
+    set_cursore_pos(console,3,4);
+    for (int i = 0; i < 3; i++){
+        set_cursore_pos(console,3,4+i);
+        printf("%s[%d] %s %s",WHITE, i ,InformationMenu[i][0] , RESET);
+    }
+}
 //-------------------------------------------------------------------------------------------------
 //
 //                                        UTILS
@@ -225,42 +272,101 @@ void RegisterSesion(){
 
 void RegisterSesionProces(){
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-
+    cls(console);
 
      if (REGISTER_MENU_STATUS == -1){
         REGISTER_MENU(console,REGISTER_MENU_STATUS);
 
-    } else if (MAIN_MENU_STATUS == 0) {
+    } else if (REGISTER_MENU_STATUS == 0) {
         REGISTER_MENU(console,1);
 
     }
 
     int answer = GetMainCommand();
 
-    if (answer == 0 ){
+    if (answer == 0 ){ // add
         REGISTER_MENU_STATUS = -1;
+        render_add_proces(console);
         
-    } else if (answer == 1) {
+    } else if (answer == 1) { // delete
         REGISTER_MENU_STATUS = -1;
+        DELETE_ELEMENT_RENDER(console);
 
 
-
-    } else if (answer == 2) {
+    } else if (answer == 2) { // viev
         REGISTER_MENU_STATUS = -1;
-
+        VIEV_ELEMENT_RENDER(console);
     
-    } else if (answer == 3) {
+    } else if (answer == 3) { // exit
         EXIT_REGISTER_STATUS = 1;
         REGISTER_MENU_STATUS = -1;
 
-
     } else {
-        
-
+        REGISTER_MENU_STATUS = 0;
     }
-
+}
+// ADD
+void ADD_MSG(HANDLE console){
+    set_cursore_pos(console, 4,4);
+    printf("%sPress the command like (ctr alt 9)%s",WHITE, RESET);
+    set_cursore_pos(console, 4,5);
 }
 
+void ADD_ELEMENT_RENDER(HANDLE console) {
+    cls(console);
+    set_cursore_pos(console, 0,1);
+    printf("/--------------------------------------------------------------------------------------------------------\\");
+    for (int i = 2; i < 27; i++ ){
+        LEFT_RIGHT_BORGER(console, i);
+    }
+    printf("\\-REGISTER-MENU-ADD--------------------------------------------------------------------------------------/");
+
+    ADD_MSG(console);
+}
+
+void render_add_proces(HANDLE console){
+    ADD_ELEMENT_RENDER(console);
+    scanf("%d");  // get msg for execute into db
+}
+// DELETE
+void DELETE_MSG(HANDLE console){
+    set_cursore_pos(console, 4,4);
+    printf("%sInput index of key combination %s",WHITE, RESET);
+    set_cursore_pos(console, 4,5);
+}
+
+void DELETE_ELEMENT_RENDER(HANDLE console) {
+    cls(console);
+    printf("/--------------------------------------------------------------------------------------------------------\\");
+    set_cursore_pos(console, 0,1);
+    for (int i = 2; i < 27; i++ ){
+        LEFT_RIGHT_BORGER(console, i);
+    }
+    printf("\\-REGISTER-MENU-DELETE-----------------------------------------------------------------------------------/");
+    DELETE_MSG(console);
+}
+// VIEV
+void VIEV_MSG(HANDLE console){
+    set_cursore_pos(console, 4,4);
+    printf("%s Inpute any string to come back into register menu%s",WHITE, RESET);
+    set_cursore_pos(console, 4,5);
+}
+
+void VIEV_ELEMENT_RENDER(HANDLE console){
+    cls(console);
+    set_cursore_pos(console, 0,1);
+    printf("/--------------------------------------------------------------------------------------------------------\\");
+    for (int i = 2; i < 27; i++ ){
+        LEFT_RIGHT_BORGER(console, i);
+    }
+    printf("\\-REGISTER-MENU-VIEV-------------------------------------------------------------------------------------/");
+    VIEV_MSG(console);
+}
+
+void VIEV_REGISTER_DATA(HANDLE console){
+    set_cursore_pos(console, 4,6);
+    printf("COMBINATIONS");
+}
 
 //-------------------------------------------------------------------------------------------------
 //
@@ -277,8 +383,86 @@ void InformationSesion(){
 
 void InformationSesionProces(){
 
-    EXIT_INFORMATION_STATUS = 1;
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    cls(console);
+
+     if (INFORMATION_MENU_STATUS == -1){
+        INFORMATION_MENU(console,INFORMATION_MENU_STATUS);
+
+    } else if (INFORMATION_MENU_STATUS == 0) { // if command doesnt found
+        INFORMATION_MENU(console,1);
+
+    }
+    int answer = GetMainCommand();
+
+    if (answer == 0 ){ // viev all
+        INFORMATION_MENU_STATUS = -1;
+        render_viev_all_proces(console);
+        
+    } else if (answer == 1) { // viev by index
+        INFORMATION_MENU_STATUS = -1;
+        render_viev_by_index_proces(console);
+    
+    } else if (answer == 2) { // exit
+        EXIT_INFORMATION_STATUS = 1;
+        INFORMATION_MENU_STATUS = -1;
+
+    } else {
+        INFORMATION_MENU_STATUS = 0;
+    }
 }
+
+void VIEV_COME_BACK_MSG(HANDLE console){
+    set_cursore_pos(console, 4,4);
+    printf("%s Inpute any string to come back into information menu%s",WHITE, RESET);
+    set_cursore_pos(console, 4,5);
+}
+
+void VIEV_ALL_ELEMENT_INFORMATION_RENDER(HANDLE console){
+    cls(console);
+    printf("/--------------------------------------------------------------------------------------------------------\\");
+    set_cursore_pos(console, 0,1);
+    for (int i = 2; i < 27; i++ ){
+        LEFT_RIGHT_BORGER(console, i);
+    }
+    set_cursore_pos(console, 4,3);
+    VIEV_COME_BACK_MSG(console);
+    printf("DATA COMBINATION (index)");
+}
+
+
+
+void render_viev_all_proces(HANDLE console){
+    VIEV_ALL_ELEMENT_INFORMATION_RENDER(console);
+
+
+}
+
+void VIEV_GET_INDEX_MSG(HANDLE console){
+    set_cursore_pos(console, 4,4);
+    printf("%s Inpute the index %s",WHITE, RESET);
+    set_cursore_pos(console, 4,5);
+}
+
+void VIEV_BY_INDEX_ELEMENT_INFORMATION_RENDER(HANDLE console){
+    cls(console);
+    printf("/--------------------------------------------------------------------------------------------------------\\");
+    set_cursore_pos(console, 0,1);
+    for (int i = 2; i < 27; i++ ){
+        LEFT_RIGHT_BORGER(console, i);
+    }
+    set_cursore_pos(console, 4,3);
+    VIEV_GET_INDEX_MSG(console);
+}
+
+void render_viev_by_index_proces(HANDLE console){
+
+    VIEV_BY_INDEX_ELEMENT_INFORMATION_RENDER(console);
+    int answer = GetMainCommand();
+
+}
+
+
 
 //-------------------------------------------------------------------------------------------------
 //
@@ -305,17 +489,17 @@ void Sesion(){
 
     int answer = GetMainCommand();
 
-    if (answer == 0 ){
+    if (answer == 0 ){ // combination register
         MAIN_MENU_STATUS = -1;
         EXIT_REGISTER_STATUS = 0;
         RegisterSesion();
 
-    } else if ( answer == 1) {
+    } else if ( answer == 1) { // information
         MAIN_MENU_STATUS = -1;
         EXIT_INFORMATION_STATUS = 0;
         InformationSesion();
 
-    } else if ( answer == 2) {
+    } else if ( answer == 2) { // exit
         MAIN_MENU_STATUS = -1;
         EXIT_STATUS = 1;
 
