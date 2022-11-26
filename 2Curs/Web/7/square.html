@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Площа прямокутника</title>
+</head>
+<body>
+<h4>Обчислення площі прямокутника</h4>
+<form name="form1">
+<p>Введіть довжину:</p>
+<input type="number" name="a" size="3">
+<p>Введіть широту:</p>
+<input type="number" name="b" size="3">
+<br><br>
+<input type="button" value="Визначити"
+onClick="document.form1.res.value=parseFloat(document.form1.a.value) * parseFloat(document.form1.b.value)">
+<br><br>
+Площа: <input type="text" name="res" size="8"><br><br>
+<input type="reset" value="Очистити">
+</form>
+</body>
+</html>

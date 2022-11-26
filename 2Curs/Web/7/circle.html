@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Площа кола</title>
+</head>
+<body>
+<h4>Обчислення площі кола</h4>
+<form name="form1">
+<p>Введіть радіус:</p>
+<input type="number" name="R" size="3">
+
+<br><br>
+<input type="button" value="Визначити"
+onClick="document.form1.res.value = pl(document.form1.R.value)">
+<br><br>
+Площа: <input type="text" name="res" size="10"><br><br>
+<input type="reset" value="Очистити">
+</form>
+<script>
+function pl (R)
+{var num = (3.14 * R * R);
+    res = parseFloat(num);
+return (res)}
+</script>
+</body>
+</html>

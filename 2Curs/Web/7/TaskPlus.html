@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Площа кола</title>
+</head>
+<body style = "background-color: darkgrey;">
+<h4>Обчислення циліндру</h4>
+<form name="form1">
+<p>Введіть радіус:</p>
+<input type="number" name="R" size="3">
+<p>Введіть висоту:</p>
+<input type="number" name="H" size="3">
+<br><br>
+Площа: <input type="text" name="cpl" size="10">
+<input type="button" value="Визначити" onClick="document.form1.cpl.value = pl(document.form1.R.value,document.form1.H.value)"><br><br>
+Об'єм: <input type="text" name="cvol" size="10">
+<input type="button" value="Визначити" onClick="document.form1.cvol.value = vol(document.form1.R.value,document.form1.H.value)"><br><br>
+<input type="reset" value="Очистити">
+</form>
+<script>
+function pl (R,H)
+{var num = (2 * 3.14 * R * H);
+    res = parseFloat(num);
+return (res)}
+function vol (R,H)
+{var num = (3.14 * R * R * H);
+    res = parseFloat(num);
+return (res)}
+</script>
+</body>
+</html>

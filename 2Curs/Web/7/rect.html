@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Теорема Піфагора</title>
+</head>
+<body>
+<h4>Теорема Піфагора</h4>
+<form name="form1">
+<p>Введіть перший катет:</p>
+<input type="number" name="a" size="3">
+<p>Введіть другий катет:</p>
+<input type="number" name="b" size="3">
+<br><br>
+<input type="button" value="Визначити"
+onClick="document.form1.c.value = gip(document.form1.a.value,document.form1.b.value)">
+<br><br>
+Гіпотинуза: <input type="text" name="c" size="10"><br><br>
+<input type="reset" value="Очистити">
+</form>
+<script>
+function gip (a, b)
+{var num = (a*a + b*b);
+    let c = parseFloat(num);
+return (c)}
+</script>
+</body>
+</html>

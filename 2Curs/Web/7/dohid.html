@@ -1,0 +1,21 @@
+<html>
+<head><title>Обчислення премії</title></head>
+<body>
+<h3>Обчислення розмірів премії</h3>
+<form name="form1">
+<p>Введіть розмір доходу і натисніть кнопку "Обчислити"</p>
+Дохід: <input type="text" name="num" size="10">
+<br><br>
+<input type="button" value="Вирахувати"
+onClick="document.form1.rs.value=0.25*document.form1.num.value">
+<br><br>
+Премія:<input type="text" name="rs" size="10">
+<br><br>
+<input type="button" value="Разом"
+onClick="document.form1.raz.value=parseFloat(document.form1.rs.value)+parseFloat(document.form1.num.value)">
+<br><br>
+Дохід+Премія:<input type="text" name="raz" size="10">
+<br><br>
+<input type="reset" value="Очистити">
+
+</form></body></html>
