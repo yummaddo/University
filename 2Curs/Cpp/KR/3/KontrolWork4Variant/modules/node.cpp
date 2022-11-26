@@ -6,11 +6,12 @@
 #include <math.h>
 #include <malloc.h>
 
-typedef struct Node {
+struct Node {
 	int value;
 	struct Node *next;
-} Node;
+};
 
+typedef struct Node Node;
 
 void push(Node **head, int data) {
     Node *tmp = (Node*) malloc(sizeof(Node));
@@ -19,6 +20,26 @@ void push(Node **head, int data) {
     (*head) = tmp;
 }
 
+int length(Node *head){
+    int index = 0; 
+    while (head)
+    {
+        head = head->next;
+        index++;
+        /* code */
+    }
+    return index;
+}
+
+int* toArray(Node *head) {
+    int leng = length(head);
+    int *values = (int*) malloc(leng*sizeof(int));
+    while (head) {
+        values[--leng] = head->value;
+        head = head->next;
+    }
+    return values;
+}
 
 int pop(Node **head) {
     Node* prev = NULL;
@@ -74,9 +95,9 @@ Node* getLastButOne(Node* head) {
     return head;
 }
 
-int popBack(Node **head) {
-    Node *pFwd = NULL;  //текущий узел
-    Node *pBwd = NULL;  //предыдущий узел
+
+void popBack(Node **head) {
+    Node *lastbn = NULL;
     //Получили NULL
     if (!head) {
         exit(-1);
@@ -85,19 +106,14 @@ int popBack(Node **head) {
     if (!(*head)) {
         exit(-1);
     }
-     
-    pFwd = *head; 
-    while (pFwd->next) { 
-        pBwd = pFwd;
-        pFwd = pFwd->next;
-    }
- 
-    if (pBwd == NULL) {
+    lastbn = getLastButOne(*head);
+    //Если в списке один элемент
+    if (lastbn == NULL) {
         free(*head);
         *head = NULL;
     } else {
-        free(pFwd->next);
-        pBwd->next = NULL;
+        free(lastbn->next);
+        lastbn->next = NULL;
     }
 }
 
@@ -137,14 +153,25 @@ int deleteElement(Node **head, int n) {
     }
 }
 
+void printLinkedList(const Node *head) {
+    while (head) {
+        printf("%d ", head->value);
+        head = head->next;
+    }
+    printf("\n");
+}
+
 void deleteElementByValue(Node **head, int n){
-    Node * start = getNextElement(*head,-1);
-    int index;
+    int index = 0;
+    Node * start = *head;
+
     while (start)
     {
         if (start->value == n){
-            deleteElement(head,index);  
+            index = deleteElement(head,index);
+            break;
         }
+        start = start->next;
         index++;
-    }    
+    }
 }

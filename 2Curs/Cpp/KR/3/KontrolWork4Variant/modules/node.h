@@ -1,7 +1,9 @@
-typedef struct Node {
+struct Node {
     int index;
-    Node * next; 
+    struct Node * next; 
 };
+typedef struct Node Node;
+
 void push(Node **head, int data);
 int pop(Node **head);
 Node* getNextElement(Node* head, int n);
