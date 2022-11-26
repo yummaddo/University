@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <title>Task_1</title>
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <a class="knopka" href="2.html" style="margin-left: 400px">До наступного завдання</a>
+        <div>
+            <h1>Реєстрація</h1>
+            <form name="form2">
+                <h2>Виберіть групу</h2>
+                <div>
+                    <input type="radio" id="choice1" name="choice" value="235" checked>
+                    <label for="choice1">235</label>
+                    <input type="radio" id="choice2" name="choice" value="236">
+                    <label for="choice2">236</label>
+                    <input type="radio" id="choice3" name="choice" value="237">
+                    <label for="choice3">237</label>
+                    <input type="radio" id="choice4" name="choice" value="238">
+                    <label for="choice3">238</label>
+                </div>
+                <br><br>
+                <label for="regname">Введіть ФІО</label><br>
+                <input type="text" name="regname"><br>
+                <input type="button" value="Реєстрація" onclick="reg()"><br><br>
+            </form>
+        </div>
+    </div>
+    <div>
+        <div>
+            <h1>Обчислення розмірів стипендії за результатами сесії</h1>
+            <h2>Введіть отримані оцінки в будь-якому порядку:</h2><br><br>
+            <form name="form1">
+                Дисципліна 1 <input type="text" name="num1" size="3">
+                Дисципліна 2 <input type="text" name="num2" size="3">
+                Дисципліна 3 <input type="text" name="num3" size="3">
+                Дисципліна 4 <input type="text" name="num4" size="3"><br><br>
+                Дисципліна 5 <input type="text" name="num5" size="3">
+                Дисципліна 6 <input type="text" name="num6" size="3">
+                Дисципліна 7 <input type="text" name="num7" size="3">
+                Дисципліна 8 <input type="text" name="num8" size="3"><br><br><br>
+                <hr>Для визначення розмірів стипендії натисніть кнопку:<hr>
+                <input type="button" value="Визначити" onclick="st(form1)"><br><hr>
+                <input type="text" size="50" name="stip" readonly><hr>
+                <input type="reset" value="Очистити">
+            </form>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>

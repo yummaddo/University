@@ -1,0 +1,33 @@
+a.knopka {
+  font-weight: 700;
+  float:right;
+  color: #FFDAD3;
+  text-decoration: none;
+  padding: .8em 1em calc(.8em + 3px);
+  border-radius: 3px;
+  background: #D55448;
+  box-shadow: 0 4px 7px #FFA593;
+  transition: 0.2s;
+} 
+input{
+  background-color: #FFC573;
+  color: #896E69;
+}
+a.knopka:hover { 
+  color: #F9F9FF;
+  background: #D55448;
+  box-shadow: 0 15px 20px #FFA593;
+  transform: translateY(-7px);
+}
+body { 
+background-color: #F9F9FF;
+color: #896E69
+} 
+.img{
+    width: 300px;
+    height: 300px;
+}
+button{
+  background-color: #D55448;
+  color: #F9F9FF;
+}
