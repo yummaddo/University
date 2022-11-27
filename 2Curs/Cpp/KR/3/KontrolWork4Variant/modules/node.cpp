@@ -20,6 +20,10 @@ void push(Node **head, int data) {
     (*head) = tmp;
 }
 
+
+
+
+
 int length(Node *head){
     int index = 0; 
     while (head)

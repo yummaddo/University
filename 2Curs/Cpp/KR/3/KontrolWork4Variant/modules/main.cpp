@@ -7,6 +7,9 @@
 #include <Windows.h>
 #include <math.h>
 #include <malloc.h>
+#include <time.h>
+#include <pthread.h>
+#include <unistd.h>
 //-------------------------------------------------------------------------------------------------
 //
 // .h
@@ -56,9 +59,11 @@ void VIEV_GET_INDEX_MSG(HANDLE console);
 //-------
 void set_cursore_pos(HANDLE hStdOut, int x, int y);
 void render_add_proces(HANDLE console);
+void render_viev_element_render_process(HANDLE console);
 void render_viev_by_index_proces(HANDLE console);
 void render_viev_all_proces(HANDLE console);
-// data base 
+// data base
+static int UpdateCallback(void *data, int argc, char **argv, char **azColName);
 void create_table_if_not_exists();
 void get_log_information();
 void get_combines_information();
@@ -116,89 +121,94 @@ int EXIT_STATUS = 0;
 int EXIT_REGISTER_STATUS = 0;
 int EXIT_INFORMATION_STATUS = 0;
 int EXIT_ADD_COMBINATION_STATUS = 0;
+int EXIT_VIEV_COMBINATION_STATUS = 0;
 
 // point of error massage
 int MAIN_MENU_STATUS = -1;
 int REGISTER_MENU_STATUS = -1;
 int INFORMATION_MENU_STATUS = -1;
 int ADD_COMBINATION_MENU_STATUS = -1;
+int VIEV_COMBINATION_MENU_STATUS = -1;
+
 
 // add string 
 char execute_add_string[50]; 
 char splited_execute_add_string[6][10];
 int  splited_execute_add_number = 0;
 
-char _CTRL_left[] = "lctr";
+char _CTRL_left[] = "-lctrl";
 int _CTRL_left_status = 0;
 
-char _CTRL_right[] = "rctr"; 
+char _CTRL_right[] = "-rctrl"; 
 int _CTRL_right_status = 0;
 
-char _CTRL[] = "ctr"; 
+char _CTRL[] = "-ctrl"; 
 int _CTRL_status = 0;
 
-char _ALT_left[] = "lalt";
+char _ALT_left[] = "-lalt";
 int _ALT_left_status = 0;
 
-char _ALT_right[] = "ralt";
+char _ALT_right[] = "-ralt";
 int _ALT_right_status = 0;
 
-char _ALT[] = "alt";
+char _ALT[] = "-alt";
 int _ALT_status = 0;
 
-char _SHIFT_left[] = "lshift";
+char _SHIFT_left[] = "-lshift";
 int _SHIFT_left_status = 0;
 
-char _SHIFT_right[] = "rshift";
+char _SHIFT_right[] = "-rshift";
 int _SHIFT_right_status = 0;
 
-char _SHIFT[] = "shift";
+char _SHIFT[] = "-shift";
 int _SHIFT_status = 0;
 
-char _ESC[] = "esc";
+char _ESC[] = "-esc";
 int _ESC_status = 0;
 
-char _F1[] = "f1";
+char _F1[] = "-f1";
 int _F1_status = 0;
 
-char _F2[] = "f2";
+char _F2[] = "-f2";
 int _F2_status = 0;
 
-char _F3[] = "f3";
+char _F3[] = "-f3";
 int _F3_status = 0;
 
-char _F4[] = "f4";
+char _F4[] = "-f4";
 int _F4_status = 0;
 
-char _F5[] = "f5";
+char _F5[] = "-f5";
 int _F5_status = 0;
 
-char _F6[] = "f6";
+char _F6[] = "-f6";
 int _F6_status = 0;
 
-char _F7[] = "f7";
+char _F7[] = "-f7";
 int _F7_status = 0;
 
-char _F8[] = "f8";
+char _F8[] = "-f8";
 int _F8_status = 0;
 
-char _F9[] = "f9";
+char _F9[] = "-f9";
 int _F9_status = 0;
 
-char _F10[] = "f10";
+char _F10[] = "-f10";
 int _F10_status = 0;
 
-char _F11[] = "f11";
+char _F11[] = "-f11";
 int _F11_status = 0;
 
-char _F12[] = "f12";
+char _F12[] = "-f12";
 int _F12_status = 0;
 
 int KEYS_INDEX[50] = {0};
 int KEYS_INDEX_size;
-
+// hook process
 Node * Buttons_order;
+char Curent_combine[60] = "";
 
+//
 
 char *keys_combine[] = {
     _F1,
@@ -409,7 +419,22 @@ void splite_the_execute_str(){ // func splited the string
             str_index = 0;curent_str_index++;index++;
         }
     }
+
+    char ex[60] = "";
     splited_execute_add_number = curent_str_index+1;
+    for (int i = splited_execute_add_number-1; i >= 0; i--){
+        snprintf(ex, sizeof ex, "%s-%s", ex, splited_execute_add_string[i]);
+    }
+    char main_execute[200] = "INSERT INTO \'combines\'(\'combine\') VALUES (\'";
+    snprintf(main_execute, sizeof main_execute, "%s%s\');", main_execute, ex);
+
+
+    rc = sqlite3_exec(db,main_execute,UpdateCallback,0,&zErrMsg);
+    Combines = (char **)realloc(Combines, sizeof(char*)*(Combines_size+1));
+    Combines[Combines_size] = (char *)malloc(sizeof(char)*50);
+    strcpy(Combines[Combines_size], ex);
+    Combines_size++;
+
 }
 //-------------------------------------------------------------------------------------------------
 //
@@ -440,6 +465,7 @@ void RegisterSesionProces(){
 
     if (answer == 0 ){ // add
         REGISTER_MENU_STATUS = -1;
+        EXIT_ADD_COMBINATION_STATUS = 0;
         while (!EXIT_ADD_COMBINATION_STATUS)
         {
             render_add_proces(console);
@@ -453,6 +479,12 @@ void RegisterSesionProces(){
 
     } else if (answer == 2) { // viev
         REGISTER_MENU_STATUS = -1;
+        while (!EXIT_VIEV_COMBINATION_STATUS)
+        {
+            render_viev_element_render_process(console);
+            
+        }
+        
         VIEV_ELEMENT_RENDER(console);
     
     } else if (answer == 3) { // exit
@@ -472,7 +504,11 @@ void RegisterSesionProces(){
 void ADD_MSG(HANDLE console){
     set_cursore_pos(console, 4,4);
     printf("%sPress the command like ( lctr-ralt-f9 )(inpute 0 to come back)%s",WHITE, RESET);
+    if (ADD_COMBINATION_MENU_STATUS == 1){
+        ADD_MSG_ADDED_COMBINATION(console);
+    }
     set_cursore_pos(console, 4,5);
+
 }
 
 void ADD_ELEMENT_RENDER(HANDLE console) {
@@ -489,12 +525,7 @@ void ADD_ELEMENT_RENDER(HANDLE console) {
 
 void ADD_MSG_ADDED_COMBINATION(HANDLE console){
     set_cursore_pos(console,4,7);
-    printf("%s[asf]",execute_add_string);
-    for (int i = 0; i < splited_execute_add_number; i++){
-        set_cursore_pos(console,4,8+i);
-        printf("1-%s",splited_execute_add_string[i]);
-    }
-
+    printf("[last added] %s",execute_add_string);
 }
 
 void render_add_proces(HANDLE console){
@@ -502,9 +533,6 @@ void render_add_proces(HANDLE console){
     scanf("%s",&execute_add_string);  // get msg for execute into db
     set_cursore_pos(console, 4,6);
 
-    if (ADD_COMBINATION_MENU_STATUS == 1){
-        ADD_MSG_ADDED_COMBINATION(console);
-    }
     if (execute_add_string[0] != '0'){
         ADD_COMBINATION_MENU_STATUS = 1;
         splite_the_execute_str();
@@ -533,6 +561,24 @@ void DELETE_ELEMENT_RENDER(HANDLE console) {
     DELETE_MSG(console);
 }
 // VIEV
+void render_viev_element_render_process(HANDLE console) {
+    VIEV_ELEMENT_RENDER(console);
+    scanf("%s",&execute_add_string);  // get msg for execute into db
+    set_cursore_pos(console, 4,6);
+
+    if (VIEV_COMBINATION_MENU_STATUS == 1){
+        ADD_MSG_ADDED_COMBINATION(console);
+    }
+    if (execute_add_string[0] != '0'){
+        VIEV_COMBINATION_MENU_STATUS = 1;
+        splite_the_execute_str();
+    } else {
+        VIEV_COMBINATION_MENU_STATUS = -1;
+        EXIT_VIEV_COMBINATION_STATUS = 1;
+    }
+    
+}
+
 void VIEV_MSG(HANDLE console){
     set_cursore_pos(console, 4,4);
     printf("%s Inpute any string to come back into register menu%s",WHITE, RESET);
@@ -547,12 +593,18 @@ void VIEV_ELEMENT_RENDER(HANDLE console){
         LEFT_RIGHT_BORGER(console, i);
     }
     printf("\\-REGISTER-MENU-VIEV-------------------------------------------------------------------------------------/");
+    VIEV_REGISTER_DATA(console);
     VIEV_MSG(console);
 }
 
 void VIEV_REGISTER_DATA(HANDLE console){
     set_cursore_pos(console, 4,6);
     printf("COMBINATIONS");
+    set_cursore_pos(console, 10,7);
+    for (int i = 0 ; i < Combines_size; i++){
+        set_cursore_pos(console, 10,7+i);
+        printf("[%d]%s",i+1,Combines[i]);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -703,6 +755,7 @@ void Sesion(){
     } else if ( answer == 2) { // exit
         MAIN_MENU_STATUS = -1;
         EXIT_STATUS = 1;
+        set_cursore_pos(console,0,29);
 
 
     } else {
@@ -714,29 +767,42 @@ void Sesion(){
 
 
 
-int main(void) {
-    // setConsoleSize();
-    // if (sqlite3_open("data.db",&db)){};
+#define ERROR_CREATE_THREAD -11
+#define ERROR_JOIN_THREAD   -12
+#define SUCCESS        0
 
-    // create_table_if_not_exists();
-    // get_combines_information();
-    // get_log_information();
-
-    // while (!EXIT_STATUS){   
-    //     Sesion();
-    // }
-    
+void* proces_hook(void *args) {
     get_async_key_data();
-    push(&Buttons_order,-1);
+    return SUCCESS;
+}
+  
+int main(void) {
+    setConsoleSize();
+    if (sqlite3_open("data.db",&db)){};
 
-    printLinkedList(Buttons_order);
+    create_table_if_not_exists();
+    get_combines_information();
+    get_log_information();
 
+    pthread_t thread;
+    int status;
+    int status_addr;
 
+    status = pthread_create(&thread, NULL, proces_hook, NULL);
+    if (status != 0) {
+        printf("main error: can't create thread, status = %d\n", status);
+        exit(ERROR_CREATE_THREAD);
+    }
+    status = pthread_detach(thread);
 
-    scanf("%f");
+    while (!EXIT_STATUS){   
+        Sesion();
+    }
     system("pause");
 }
-
+//
+//---------------------------------------------------------------------------------------------------------------
+//
 static int create_combines_table(void *data, int argc, char **argv, char **azColName) {
    return 0;
 };
@@ -817,20 +883,55 @@ void get_log_information() {
 //
 //-------------------------------------------------------------------------------------------------
 
+void write_into_database(char date[128]){
+            
+    char execute[200] = "INSERT INTO \'infor\'(\'date\',\'combine\') VALUES (\'";
 
+    snprintf(execute, sizeof execute, "%s%s\', \'", execute, date);
+    snprintf(execute, sizeof execute, "%s%s\');", execute, Curent_combine);
+
+    rc = sqlite3_exec(db,execute,UpdateCallback,0,&zErrMsg);
+}
+
+
+void Find_in_combines_data(){
+    for (int i = 0; i < Combines_size; i++){
+        if (!strcmp(Combines[i],Curent_combine)){
+            time_t seconds;
+            seconds = time(NULL);
+
+            tm* now = localtime(&seconds);
+            char buffer[128];
+            strftime(buffer, sizeof(buffer), "%m-%d-%Y %X", now);
+            // printf("[time] %s  [combine]\n",buffer,Curent_combine);
+            
+            Log = (CombinesLog *)realloc(Log, sizeof(CombinesLog)*(Log_size+1));
+            CombinesLog temp;
+            strcpy(temp.date,buffer);
+            strcpy(temp.combine,Curent_combine);
+            Log[Log_size] = temp;
+            Log_size++;
+            write_into_database(buffer);
+        } else {
+
+            // printf("[combine]%s\n",Curent_combine);
+
+        }
+    }
+}
 
 
 void concatenate_combine_from_KEYS_INDEX(){
     int * ar = toArray(Buttons_order);
-    printLinkedList(Buttons_order);
-    printf("\n");
-
-    for (int i = 1; i < length(Buttons_order); i++){
-        Node * temp = getNextElement(Buttons_order,i-1);
-
-        printf("%s ",keys_combine[temp->index]);
+    Node * temp = Buttons_order;
+    
+    while(temp) {
+        snprintf(Curent_combine, sizeof Curent_combine, "%s%s", Curent_combine, keys_combine[temp->index]);
+        temp = temp->next;
     }
-    printf("\n");
+
+    Find_in_combines_data();
+    memset(Curent_combine, 0, sizeof(Curent_combine)) ;
 }
 
 
@@ -839,56 +940,56 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode == HC_ACTION) {
         KBDLLHOOKSTRUCT* details = (KBDLLHOOKSTRUCT*)lParam;
         switch (wParam) {
-        case WM_KEYDOWN:
-        case WM_SYSKEYDOWN:
-            if (details->vkCode == VK_F1){if (_F1_status == 0){push(&Buttons_order,0);}; _F1_status = 1;KEYS_INDEX[0] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F2){if (_F2_status == 0){push(&Buttons_order,1);}; _F2_status = 1;KEYS_INDEX[1] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F3){if (_F3_status == 0){push(&Buttons_order,2);}; _F3_status = 1;KEYS_INDEX[2] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F4){if (_F4_status == 0){push(&Buttons_order,3);}; _F4_status = 1;KEYS_INDEX[3] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F5){if (_F5_status == 0){push(&Buttons_order,4);}; _F5_status = 1;KEYS_INDEX[4] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F6){if (_F6_status == 0){push(&Buttons_order,5);}; _F6_status = 1;KEYS_INDEX[5] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F7){if (_F7_status == 0){push(&Buttons_order,6);}; _F7_status = 1;KEYS_INDEX[6] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F8){if (_F8_status == 0){push(&Buttons_order,7);}; _F8_status = 1;KEYS_INDEX[7] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F9){if (_F9_status == 0){push(&Buttons_order,8);}; _F9_status = 1;KEYS_INDEX[8] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F10){if (_F10_status == 0){push(&Buttons_order,9);}; _F10_status = 1;KEYS_INDEX[9] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F11){if (_F11_status == 0){push(&Buttons_order,10);}; _F11_status = 1;KEYS_INDEX[10] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_F12){if (_F12_status == 0){push(&Buttons_order,11);}; _F12_status = 1;KEYS_INDEX[11] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_CONTROL){if (_CTRL_status == 0){push(&Buttons_order,12);}; _CTRL_status = 1;KEYS_INDEX[12] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_LCONTROL){if (_CTRL_left_status == 0){push(&Buttons_order,13);}; _CTRL_left_status = 1;KEYS_INDEX[13] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_RCONTROL){if (_CTRL_right_status == 0){push(&Buttons_order,14);}; _CTRL_right_status = 1;KEYS_INDEX[14] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_MENU){if (_ALT_status == 0){push(&Buttons_order,15);}; _ALT_status = 1; KEYS_INDEX[15] = 0;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_LMENU){if (_ALT_left_status == 0){push(&Buttons_order,16);}; _ALT_left_status = 1; KEYS_INDEX[16] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_RMENU){if (_ALT_right_status == 0){push(&Buttons_order,17);}; _ALT_right_status = 1; KEYS_INDEX[17] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_SHIFT){if (_SHIFT_status == 0){push(&Buttons_order,18);}; _SHIFT_status = 1;KEYS_INDEX[18] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_LSHIFT){if (_SHIFT_left_status == 0){push(&Buttons_order,19);}; _SHIFT_left_status = 1;KEYS_INDEX[19] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_RSHIFT){if (_SHIFT_right_status == 0){push(&Buttons_order,20);}; _SHIFT_right_status = 1;KEYS_INDEX[20] = 1;KEYS_INDEX_size++;};
-            if (details->vkCode == VK_ESCAPE){if (_ESC_status == 0){push(&Buttons_order,21);}; _ESC_status = 1;KEYS_INDEX[21] = 1;KEYS_INDEX_size++;};
-            break;
-        case WM_KEYUP:
-        case WM_SYSKEYUP:
-            if (details->vkCode == VK_F1){if(_F1_status == 1) {deleteElementByValue(&Buttons_order,0);}; _F1_status = 0;KEYS_INDEX[0] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F2){if(_F2_status == 1) {deleteElementByValue(&Buttons_order,1);}; _F2_status = 0;KEYS_INDEX[1] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F3){if(_F3_status == 1) {deleteElementByValue(&Buttons_order,2);}; _F3_status = 0;KEYS_INDEX[2] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F4){if(_F4_status == 1) {deleteElementByValue(&Buttons_order,3);}; _F4_status = 0;KEYS_INDEX[3] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F5){if(_F5_status == 1) {deleteElementByValue(&Buttons_order,4);}; _F5_status = 0;KEYS_INDEX[4] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F6){if(_F6_status == 1) {deleteElementByValue(&Buttons_order,5);}; _F6_status = 0;KEYS_INDEX[5] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F7){if(_F7_status == 1) {deleteElementByValue(&Buttons_order,6);}; _F7_status = 0;KEYS_INDEX[6] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F8){if(_F8_status == 1) {deleteElementByValue(&Buttons_order,7);}; _F8_status = 0;KEYS_INDEX[7] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F9){if(_F9_status == 1) {deleteElementByValue(&Buttons_order,8);}; _F9_status = 0;KEYS_INDEX[8] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F10){if(_F10_status == 1) {deleteElementByValue(&Buttons_order,9);}; _F10_status = 0;KEYS_INDEX[9] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F11){if(_F11_status == 1) {deleteElementByValue(&Buttons_order,10);}; _F11_status = 0;KEYS_INDEX[10] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_F12){if(_F12_status == 1) {deleteElementByValue(&Buttons_order,11);}; _F12_status = 0;KEYS_INDEX[11] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_CONTROL){if(_CTRL_status == 1) {deleteElementByValue(&Buttons_order,12);}; _CTRL_status = 0;KEYS_INDEX[12] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_LCONTROL){if(_CTRL_left_status == 1) {deleteElementByValue(&Buttons_order,13);}; _CTRL_left_status = 0;KEYS_INDEX[13] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_RCONTROL){if(_CTRL_right_status == 1) {deleteElementByValue(&Buttons_order,14);}; _CTRL_right_status = 0;KEYS_INDEX[14] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_MENU){if(_ALT_status == 1) {deleteElementByValue(&Buttons_order,15);}; _ALT_status = 0; KEYS_INDEX[15] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_LMENU){if(_ALT_left_status == 1) {deleteElementByValue(&Buttons_order,16);}; _ALT_left_status = 0; KEYS_INDEX[16] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_RMENU){if(_ALT_right_status == 1) {deleteElementByValue(&Buttons_order,17);}; _ALT_right_status = 0; KEYS_INDEX[17] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_SHIFT){if(_SHIFT_status == 1) {deleteElementByValue(&Buttons_order,18);}; _SHIFT_status = 0;KEYS_INDEX[18] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_LSHIFT){if(_SHIFT_left_status == 1) {deleteElementByValue(&Buttons_order,19);}; _SHIFT_left_status = 0;KEYS_INDEX[19] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_RSHIFT){if(_SHIFT_right_status == 1) {deleteElementByValue(&Buttons_order,20);}; _SHIFT_right_status = 0;KEYS_INDEX[20] = 0;KEYS_INDEX_size--;};
-            if (details->vkCode == VK_ESCAPE){if(_ESC_status == 1) {deleteElementByValue(&Buttons_order,21);}; _ESC_status = 0;KEYS_INDEX[21] = 0;KEYS_INDEX_size--;};
-            break;
+            case WM_KEYDOWN:
+            case WM_SYSKEYDOWN:
+                if (details->vkCode == VK_F1){if (_F1_status == 0){push(&Buttons_order,0);}; _F1_status = 1;KEYS_INDEX[0] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F2){if (_F2_status == 0){push(&Buttons_order,1);}; _F2_status = 1;KEYS_INDEX[1] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F3){if (_F3_status == 0){push(&Buttons_order,2);}; _F3_status = 1;KEYS_INDEX[2] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F4){if (_F4_status == 0){push(&Buttons_order,3);}; _F4_status = 1;KEYS_INDEX[3] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F5){if (_F5_status == 0){push(&Buttons_order,4);}; _F5_status = 1;KEYS_INDEX[4] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F6){if (_F6_status == 0){push(&Buttons_order,5);}; _F6_status = 1;KEYS_INDEX[5] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F7){if (_F7_status == 0){push(&Buttons_order,6);}; _F7_status = 1;KEYS_INDEX[6] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F8){if (_F8_status == 0){push(&Buttons_order,7);}; _F8_status = 1;KEYS_INDEX[7] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F9){if (_F9_status == 0){push(&Buttons_order,8);}; _F9_status = 1;KEYS_INDEX[8] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F10){if (_F10_status == 0){push(&Buttons_order,9);}; _F10_status = 1;KEYS_INDEX[9] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F11){if (_F11_status == 0){push(&Buttons_order,10);}; _F11_status = 1;KEYS_INDEX[10] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_F12){if (_F12_status == 0){push(&Buttons_order,11);}; _F12_status = 1;KEYS_INDEX[11] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_CONTROL){if (_CTRL_status == 0){push(&Buttons_order,12);}; _CTRL_status = 1;KEYS_INDEX[12] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_LCONTROL){if (_CTRL_left_status == 0){push(&Buttons_order,13);}; _CTRL_left_status = 1;KEYS_INDEX[13] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_RCONTROL){if (_CTRL_right_status == 0){push(&Buttons_order,14);}; _CTRL_right_status = 1;KEYS_INDEX[14] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_MENU){if (_ALT_status == 0){push(&Buttons_order,15);}; _ALT_status = 1; KEYS_INDEX[15] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_LMENU){if (_ALT_left_status == 0){push(&Buttons_order,16);}; _ALT_left_status = 1; KEYS_INDEX[16] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_RMENU){if (_ALT_right_status == 0){push(&Buttons_order,17);}; _ALT_right_status = 1; KEYS_INDEX[17] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_SHIFT){if (_SHIFT_status == 0){push(&Buttons_order,18);}; _SHIFT_status = 1;KEYS_INDEX[18] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_LSHIFT){if (_SHIFT_left_status == 0){push(&Buttons_order,19);}; _SHIFT_left_status = 1;KEYS_INDEX[19] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_RSHIFT){if (_SHIFT_right_status == 0){push(&Buttons_order,20);}; _SHIFT_right_status = 1;KEYS_INDEX[20] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_ESCAPE){if (_ESC_status == 0){push(&Buttons_order,21);}; _ESC_status = 1;KEYS_INDEX[21] = 1;KEYS_INDEX_size++;};
+                break;
+            case WM_KEYUP:
+            case WM_SYSKEYUP:
+                if (details->vkCode == VK_F1){if(_F1_status == 1) {deleteElementByValue(&Buttons_order,0);}; _F1_status = 0;KEYS_INDEX[0] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F2){if(_F2_status == 1) {deleteElementByValue(&Buttons_order,1);}; _F2_status = 0;KEYS_INDEX[1] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F3){if(_F3_status == 1) {deleteElementByValue(&Buttons_order,2);}; _F3_status = 0;KEYS_INDEX[2] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F4){if(_F4_status == 1) {deleteElementByValue(&Buttons_order,3);}; _F4_status = 0;KEYS_INDEX[3] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F5){if(_F5_status == 1) {deleteElementByValue(&Buttons_order,4);}; _F5_status = 0;KEYS_INDEX[4] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F6){if(_F6_status == 1) {deleteElementByValue(&Buttons_order,5);}; _F6_status = 0;KEYS_INDEX[5] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F7){if(_F7_status == 1) {deleteElementByValue(&Buttons_order,6);}; _F7_status = 0;KEYS_INDEX[6] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F8){if(_F8_status == 1) {deleteElementByValue(&Buttons_order,7);}; _F8_status = 0;KEYS_INDEX[7] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F9){if(_F9_status == 1) {deleteElementByValue(&Buttons_order,8);}; _F9_status = 0;KEYS_INDEX[8] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F10){if(_F10_status == 1) {deleteElementByValue(&Buttons_order,9);}; _F10_status = 0;KEYS_INDEX[9] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F11){if(_F11_status == 1) {deleteElementByValue(&Buttons_order,10);}; _F11_status = 0;KEYS_INDEX[10] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_F12){if(_F12_status == 1) {deleteElementByValue(&Buttons_order,11);}; _F12_status = 0;KEYS_INDEX[11] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_CONTROL){if(_CTRL_status == 1) {deleteElementByValue(&Buttons_order,12);}; _CTRL_status = 0;KEYS_INDEX[12] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_LCONTROL){if(_CTRL_left_status == 1) {deleteElementByValue(&Buttons_order,13);}; _CTRL_left_status = 0;KEYS_INDEX[13] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_RCONTROL){if(_CTRL_right_status == 1) {deleteElementByValue(&Buttons_order,14);}; _CTRL_right_status = 0;KEYS_INDEX[14] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_MENU){if(_ALT_status == 1) {deleteElementByValue(&Buttons_order,15);}; _ALT_status = 0; KEYS_INDEX[15] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_LMENU){if(_ALT_left_status == 1) {deleteElementByValue(&Buttons_order,16);}; _ALT_left_status = 0; KEYS_INDEX[16] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_RMENU){if(_ALT_right_status == 1) {deleteElementByValue(&Buttons_order,17);}; _ALT_right_status = 0; KEYS_INDEX[17] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_SHIFT){if(_SHIFT_status == 1) {deleteElementByValue(&Buttons_order,18);}; _SHIFT_status = 0;KEYS_INDEX[18] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_LSHIFT){if(_SHIFT_left_status == 1) {deleteElementByValue(&Buttons_order,19);}; _SHIFT_left_status = 0;KEYS_INDEX[19] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_RSHIFT){if(_SHIFT_right_status == 1) {deleteElementByValue(&Buttons_order,20);}; _SHIFT_right_status = 0;KEYS_INDEX[20] = 0;KEYS_INDEX_size--;};
+                if (details->vkCode == VK_ESCAPE){if(_ESC_status == 1) {deleteElementByValue(&Buttons_order,21);}; _ESC_status = 0;KEYS_INDEX[21] = 0;KEYS_INDEX_size--;};
+                break;
         }
 
         concatenate_combine_from_KEYS_INDEX();
