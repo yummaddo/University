@@ -138,71 +138,128 @@ int  splited_execute_add_number = 0;
 
 char _CTRL_left[] = "-lctrl";
 int _CTRL_left_status = 0;
-
 char _CTRL_right[] = "-rctrl"; 
 int _CTRL_right_status = 0;
-
 char _CTRL[] = "-ctrl"; 
 int _CTRL_status = 0;
-
 char _ALT_left[] = "-lalt";
 int _ALT_left_status = 0;
-
 char _ALT_right[] = "-ralt";
 int _ALT_right_status = 0;
-
 char _ALT[] = "-alt";
 int _ALT_status = 0;
-
 char _SHIFT_left[] = "-lshift";
 int _SHIFT_left_status = 0;
-
 char _SHIFT_right[] = "-rshift";
 int _SHIFT_right_status = 0;
-
 char _SHIFT[] = "-shift";
 int _SHIFT_status = 0;
-
 char _ESC[] = "-esc";
 int _ESC_status = 0;
-
 char _F1[] = "-f1";
 int _F1_status = 0;
-
 char _F2[] = "-f2";
 int _F2_status = 0;
-
 char _F3[] = "-f3";
 int _F3_status = 0;
-
 char _F4[] = "-f4";
 int _F4_status = 0;
-
 char _F5[] = "-f5";
 int _F5_status = 0;
-
 char _F6[] = "-f6";
 int _F6_status = 0;
-
 char _F7[] = "-f7";
 int _F7_status = 0;
-
 char _F8[] = "-f8";
 int _F8_status = 0;
-
 char _F9[] = "-f9";
 int _F9_status = 0;
-
 char _F10[] = "-f10";
 int _F10_status = 0;
-
 char _F11[] = "-f11";
 int _F11_status = 0;
-
 char _F12[] = "-f12";
 int _F12_status = 0;
+char _0[] = "-0";
+int _0_status = 0;
+char _1[] = "-1";
+int _1_status = 0;
+char _2[] = "-2";
+int _2_status = 0;
+char _3[] = "-3";
+int _3_status = 0;
+char _4[] = "-4";
+int _4_status = 0;
+char _5[] = "-5";
+int _5_status = 0;
+char _6[] = "-6";
+int _6_status = 0;
+char _7[] = "-7";
+int _7_status = 0;
+char _8[] = "-8";
+int _8_status = 0;
+char _9[] = "-9";
+int _9_status = 0;
+char _tab[] = "-tab";
+int _tab_status = 0;
+char _caps_lock[] = "-capslock";
+int _caps_lock_status = 0;
+char _a[] = "-a";
+char _q[] = "-q";
+char _w[] = "-w";
+char _e[] = "-e";
+char _r[] = "-r";
+char _t[] = "-t";
+char _y[] = "-y";
+char _u[] = "-u";
+char _i[] = "-i";
+char _o[] = "-o";
+char _p[] = "-p";
+char _s[] = "-s";
+char _d[] = "-d";
+char _f[] = "-f";
+char _g[] = "-g";
+char _h[] = "-h";
+char _j[] = "-j";
+char _k[] = "-k";
+char _l[] = "-l";
+char _z[] = "-z";
+char _x[] = "-x";
+char _c[] = "-c";
+char _v[] = "-v";
+char _b[] = "-b";
+char _n[] = "-n";
+char _m[] = "-m";
 
-int KEYS_INDEX[50] = {0};
+int _q_status = 0;
+int _w_status = 0;
+int _e_status = 0;
+int _r_status = 0;
+int _t_status = 0;
+int _y_status = 0;
+int _u_status = 0;
+int _i_status = 0;
+int _o_status = 0;
+int _p_status = 0;
+int _a_status = 0;
+int _s_status = 0;
+int _d_status = 0;
+int _f_status = 0;
+int _g_status = 0;
+int _h_status = 0;
+int _j_status = 0;
+int _k_status = 0;
+int _l_status = 0;
+int _z_status = 0;
+int _x_status = 0;
+int _c_status = 0;
+int _v_status = 0;
+int _b_status = 0;
+int _n_status = 0;
+int _m_status = 0;
+
+
+int KEYS_INDEX[80] = {0};
 int KEYS_INDEX_size;
 // hook process
 Node * Buttons_order;
@@ -232,7 +289,45 @@ char *keys_combine[] = {
     _SHIFT_left,
     _SHIFT_right,
     _SHIFT,
-    _ESC
+    _ESC,
+    _0,
+    _1,
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _a,
+    _b,
+    _c,
+    _d,
+    _e,
+    _f,
+    _g,
+    _h,
+    _i,
+    _j,
+    _k,
+    _l,
+    _m,
+    _n,
+    _o,
+    _p,
+    _q,
+    _r,
+    _s,
+    _t,
+    _u,
+    _v,
+    _w,
+    _x,
+    _y,
+    _z,
+    _tab,
+    _caps_lock
 };
 
 
@@ -965,7 +1060,49 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 if (details->vkCode == VK_LSHIFT){if (_SHIFT_left_status == 0){push(&Buttons_order,19);}; _SHIFT_left_status = 1;KEYS_INDEX[19] = 1;KEYS_INDEX_size++;};
                 if (details->vkCode == VK_RSHIFT){if (_SHIFT_right_status == 0){push(&Buttons_order,20);}; _SHIFT_right_status = 1;KEYS_INDEX[20] = 1;KEYS_INDEX_size++;};
                 if (details->vkCode == VK_ESCAPE){if (_ESC_status == 0){push(&Buttons_order,21);}; _ESC_status = 1;KEYS_INDEX[21] = 1;KEYS_INDEX_size++;};
+
+                if (details->vkCode == 0x30){if (_0_status == 0){push(&Buttons_order,22);}; _0_status = 1;KEYS_INDEX[22] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x31){if (_1_status == 0){push(&Buttons_order,23);}; _1_status = 1;KEYS_INDEX[23] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x32){if (_2_status == 0){push(&Buttons_order,24);}; _2_status = 1;KEYS_INDEX[24] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x33){if (_3_status == 0){push(&Buttons_order,25);}; _3_status = 1;KEYS_INDEX[25] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x34){if (_4_status == 0){push(&Buttons_order,26);}; _4_status = 1;KEYS_INDEX[26] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x35){if (_5_status == 0){push(&Buttons_order,27);}; _5_status = 1;KEYS_INDEX[27] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x36){if (_6_status == 0){push(&Buttons_order,28);}; _6_status = 1;KEYS_INDEX[28] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x37){if (_7_status == 0){push(&Buttons_order,29);}; _7_status = 1;KEYS_INDEX[29] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x38){if (_8_status == 0){push(&Buttons_order,30);}; _8_status = 1;KEYS_INDEX[30] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x39){if (_9_status == 0){push(&Buttons_order,31);}; _9_status = 1;KEYS_INDEX[31] = 1;KEYS_INDEX_size++;};
+                
+                if (details->vkCode == 0x41){if (_a_status == 0){push(&Buttons_order,32);}; _a_status = 1;KEYS_INDEX[32] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x42){if (_b_status == 0){push(&Buttons_order,33);}; _b_status = 1;KEYS_INDEX[33] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x43){if (_c_status == 0){push(&Buttons_order,34);}; _c_status = 1;KEYS_INDEX[34] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x44){if (_d_status == 0){push(&Buttons_order,35);}; _d_status = 1;KEYS_INDEX[35] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x45){if (_e_status == 0){push(&Buttons_order,36);}; _e_status = 1;KEYS_INDEX[36] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x46){if (_f_status == 0){push(&Buttons_order,37);}; _f_status = 1;KEYS_INDEX[37] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x47){if (_g_status == 0){push(&Buttons_order,38);}; _g_status = 1;KEYS_INDEX[38] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x48){if (_h_status == 0){push(&Buttons_order,39);}; _h_status = 1;KEYS_INDEX[39] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x49){if (_i_status == 0){push(&Buttons_order,40);}; _i_status = 1;KEYS_INDEX[40] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4A){if (_j_status == 0){push(&Buttons_order,41);}; _j_status = 1;KEYS_INDEX[41] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4B){if (_k_status == 0){push(&Buttons_order,42);}; _k_status = 1;KEYS_INDEX[42] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4C){if (_l_status == 0){push(&Buttons_order,43);}; _l_status = 1;KEYS_INDEX[43] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4D){if (_m_status == 0){push(&Buttons_order,44);}; _m_status = 1;KEYS_INDEX[44] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4E){if (_n_status == 0){push(&Buttons_order,45);}; _n_status = 1;KEYS_INDEX[45] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4F){if (_o_status == 0){push(&Buttons_order,46);}; _o_status = 1;KEYS_INDEX[46] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x50){if (_p_status == 0){push(&Buttons_order,47);}; _p_status = 1;KEYS_INDEX[47] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x51){if (_q_status == 0){push(&Buttons_order,48);}; _q_status = 1;KEYS_INDEX[48] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x52){if (_r_status == 0){push(&Buttons_order,49);}; _r_status = 1;KEYS_INDEX[49] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x53){if (_s_status == 0){push(&Buttons_order,50);}; _s_status = 1;KEYS_INDEX[50] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x54){if (_t_status == 0){push(&Buttons_order,51);}; _t_status = 1;KEYS_INDEX[51] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x55){if (_u_status == 0){push(&Buttons_order,52);}; _u_status = 1;KEYS_INDEX[52] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x56){if (_v_status == 0){push(&Buttons_order,53);}; _v_status = 1;KEYS_INDEX[53] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x57){if (_w_status == 0){push(&Buttons_order,54);}; _w_status = 1;KEYS_INDEX[54] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x58){if (_x_status == 0){push(&Buttons_order,55);}; _x_status = 1;KEYS_INDEX[55] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x59){if (_y_status == 0){push(&Buttons_order,56);}; _y_status = 1;KEYS_INDEX[56] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x5A){if (_z_status == 0){push(&Buttons_order,57);}; _z_status = 1;KEYS_INDEX[57] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_TAB){if (_tab_status == 0){push(&Buttons_order,58);}; _tab_status = 1;KEYS_INDEX[58] = 1;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_CAPITAL){if (_caps_lock_status == 0){push(&Buttons_order,59);}; _caps_lock_status = 1;KEYS_INDEX[59] = 1;KEYS_INDEX_size++;};
+
                 break;
+                
             case WM_KEYUP:
             case WM_SYSKEYUP:
                 if (details->vkCode == VK_F1){if(_F1_status == 1) {deleteElementByValue(&Buttons_order,0);}; _F1_status = 0;KEYS_INDEX[0] = 0;KEYS_INDEX_size--;};
@@ -990,6 +1127,47 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 if (details->vkCode == VK_LSHIFT){if(_SHIFT_left_status == 1) {deleteElementByValue(&Buttons_order,19);}; _SHIFT_left_status = 0;KEYS_INDEX[19] = 0;KEYS_INDEX_size--;};
                 if (details->vkCode == VK_RSHIFT){if(_SHIFT_right_status == 1) {deleteElementByValue(&Buttons_order,20);}; _SHIFT_right_status = 0;KEYS_INDEX[20] = 0;KEYS_INDEX_size--;};
                 if (details->vkCode == VK_ESCAPE){if(_ESC_status == 1) {deleteElementByValue(&Buttons_order,21);}; _ESC_status = 0;KEYS_INDEX[21] = 0;KEYS_INDEX_size--;};
+                
+                if (details->vkCode == 0x30){if (_0_status == 1){deleteElementByValue(&Buttons_order,22);}; _0_status = 0;KEYS_INDEX[22] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x31){if (_1_status == 1){deleteElementByValue(&Buttons_order,23);}; _1_status = 0;KEYS_INDEX[23] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x32){if (_2_status == 1){deleteElementByValue(&Buttons_order,24);}; _2_status = 0;KEYS_INDEX[24] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x33){if (_3_status == 1){deleteElementByValue(&Buttons_order,25);}; _3_status = 0;KEYS_INDEX[25] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x34){if (_4_status == 1){deleteElementByValue(&Buttons_order,26);}; _4_status = 0;KEYS_INDEX[26] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x35){if (_5_status == 1){deleteElementByValue(&Buttons_order,27);}; _5_status = 0;KEYS_INDEX[27] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x36){if (_6_status == 1){deleteElementByValue(&Buttons_order,28);}; _6_status = 0;KEYS_INDEX[28] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x37){if (_7_status == 1){deleteElementByValue(&Buttons_order,29);}; _7_status = 0;KEYS_INDEX[29] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x38){if (_8_status == 1){deleteElementByValue(&Buttons_order,30);}; _8_status = 0;KEYS_INDEX[30] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x39){if (_9_status == 1){deleteElementByValue(&Buttons_order,31);}; _9_status = 0;KEYS_INDEX[31] = 0;KEYS_INDEX_size++;};
+                
+                if (details->vkCode == 0x41){if (_a_status == 1){deleteElementByValue(&Buttons_order,32);}; _a_status = 0;KEYS_INDEX[32] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x42){if (_b_status == 1){deleteElementByValue(&Buttons_order,33);}; _b_status = 0;KEYS_INDEX[33] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x43){if (_c_status == 1){deleteElementByValue(&Buttons_order,34);}; _c_status = 0;KEYS_INDEX[34] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x44){if (_d_status == 1){deleteElementByValue(&Buttons_order,35);}; _d_status = 0;KEYS_INDEX[35] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x45){if (_e_status == 1){deleteElementByValue(&Buttons_order,36);}; _e_status = 0;KEYS_INDEX[36] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x46){if (_f_status == 1){deleteElementByValue(&Buttons_order,37);}; _f_status = 0;KEYS_INDEX[37] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x47){if (_g_status == 1){deleteElementByValue(&Buttons_order,38);}; _g_status = 0;KEYS_INDEX[38] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x48){if (_h_status == 1){deleteElementByValue(&Buttons_order,39);}; _h_status = 0;KEYS_INDEX[39] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x49){if (_i_status == 1){deleteElementByValue(&Buttons_order,40);}; _i_status = 0;KEYS_INDEX[40] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4A){if (_j_status == 1){deleteElementByValue(&Buttons_order,41);}; _j_status = 0;KEYS_INDEX[41] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4B){if (_k_status == 1){deleteElementByValue(&Buttons_order,42);}; _k_status = 0;KEYS_INDEX[42] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4C){if (_l_status == 1){deleteElementByValue(&Buttons_order,43);}; _l_status = 0;KEYS_INDEX[43] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4D){if (_m_status == 1){deleteElementByValue(&Buttons_order,44);}; _m_status = 0;KEYS_INDEX[44] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4E){if (_n_status == 1){deleteElementByValue(&Buttons_order,45);}; _n_status = 0;KEYS_INDEX[45] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x4F){if (_o_status == 1){deleteElementByValue(&Buttons_order,46);}; _o_status = 0;KEYS_INDEX[46] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x50){if (_p_status == 1){deleteElementByValue(&Buttons_order,47);}; _p_status = 0;KEYS_INDEX[47] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x51){if (_q_status == 1){deleteElementByValue(&Buttons_order,48);}; _q_status = 0;KEYS_INDEX[48] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x52){if (_r_status == 1){deleteElementByValue(&Buttons_order,49);}; _r_status = 0;KEYS_INDEX[49] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x53){if (_s_status == 1){deleteElementByValue(&Buttons_order,50);}; _s_status = 0;KEYS_INDEX[50] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x54){if (_t_status == 1){deleteElementByValue(&Buttons_order,51);}; _t_status = 0;KEYS_INDEX[51] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x55){if (_u_status == 1){deleteElementByValue(&Buttons_order,52);}; _u_status = 0;KEYS_INDEX[52] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x56){if (_v_status == 1){deleteElementByValue(&Buttons_order,53);}; _v_status = 0;KEYS_INDEX[53] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x57){if (_w_status == 1){deleteElementByValue(&Buttons_order,54);}; _w_status = 0;KEYS_INDEX[54] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x58){if (_x_status == 1){deleteElementByValue(&Buttons_order,55);}; _x_status = 0;KEYS_INDEX[55] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x59){if (_y_status == 1){deleteElementByValue(&Buttons_order,56);}; _y_status = 0;KEYS_INDEX[56] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == 0x5A){if (_z_status == 1){deleteElementByValue(&Buttons_order,57);}; _z_status = 0;KEYS_INDEX[57] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_TAB){if (_tab_status == 1){deleteElementByValue(&Buttons_order,58);}; _tab_status = 0;KEYS_INDEX[58] = 0;KEYS_INDEX_size++;};
+                if (details->vkCode == VK_CAPITAL){if (_caps_lock_status == 1){deleteElementByValue(&Buttons_order,59);}; _caps_lock_status = 0;KEYS_INDEX[59] = 0;KEYS_INDEX_size++;};
+                
                 break;
         }
 
