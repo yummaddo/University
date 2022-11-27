@@ -479,6 +479,7 @@ void RegisterSesionProces(){
 
     } else if (answer == 2) { // viev
         REGISTER_MENU_STATUS = -1;
+        EXIT_VIEV_COMBINATION_STATUS = 0;
         while (!EXIT_VIEV_COMBINATION_STATUS)
         {
             render_viev_element_render_process(console);
