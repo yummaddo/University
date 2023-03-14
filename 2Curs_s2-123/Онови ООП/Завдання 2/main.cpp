@@ -21,13 +21,18 @@ public:
 
     ~Timer()
     {
-        std::chrono::duration<double> elapsed = std::chrono::high_resolution_clock::now() - m_startTime;
-        std::cout << "Timer destroyed. Time elapsed: " << elapsed.count() << " seconds." << std::endl;
-
         // очищення пам'яті
+        std::cout << "Clear var:: m_data with values :: ";
+        for (int i = 0; i < m_dataSize; i++) {
+            std::cout << "Index: " << i << " Value: " << m_data[i] << std::endl;
+        }
+
         delete[] m_data;
         m_data = nullptr;
         m_dataSize = 0;
+        
+        std::chrono::duration<double> elapsed = std::chrono::high_resolution_clock::now() - m_startTime;
+        std::cout << "Timer destroyed. Time elapsed: " << elapsed.count() << " seconds." << std::endl;
     }
 
     // метод для заповнення масиву даними
