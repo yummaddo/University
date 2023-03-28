@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "D:/GitHub/University/2Curs_s2-123/Онови ООП/Завдання 2",
-      "program": "D:/GitHub/University/2Curs_s2-123/Онови ООП/Завдання 2/",
+      "cwd": "d:/GitHub/University/2Curs_s2-123/Онови ООП/Завдання 2",
+      "program": "d:/GitHub/University/2Curs_s2-123/Онови ООП/Завдання 2/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
