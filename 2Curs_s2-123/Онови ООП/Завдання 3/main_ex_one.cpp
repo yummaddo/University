@@ -7,8 +7,7 @@ class Shape {
       virtual double surfaceArea() = 0; // Pure virtual function is declared as follows.
       virtual std::string getSuccessorName() = 0;
 
-      friend class Show;
-    
+
    protected:
       double s;
 
@@ -28,6 +27,7 @@ public:
         s = (double)2 * (double)M_PI * m_radius * (m_height + m_radius);
         return s;
     }
+    void ShowS(bool m_displayIntFirst);
 
 
 private:
@@ -49,6 +49,7 @@ public:
         s = 6 * pow(m_side, 2);
         return s;
     }
+    void ShowS(bool m_displayIntFirst);
 
 private:
     double s;
@@ -68,6 +69,7 @@ public:
         s = sqrt(3) * pow(m_side, 2);
         return s;
     }
+    void ShowS(bool m_displayIntFirst);
 
 private:
     double s;
@@ -87,6 +89,7 @@ public:
         s = 2 * (m_length * m_width + m_length * m_height + m_width * m_height);
         return s;
     }
+    void ShowS(bool m_displayIntFirst);
 
 private:
     double s;
@@ -108,6 +111,7 @@ public:
         s = 4 * M_PI * pow(m_radius, 2);
         return s;
     }
+    void ShowS(bool m_displayIntFirst);
 
 private:
     double s;
@@ -115,40 +119,56 @@ private:
 };
 
 
-class Show
+inline void Sphere::ShowS(bool m_displayIntFirst)
 {
-private:
-    bool m_displayIntFirst;
-public:
-    Show(bool displayIntFirst) { m_displayIntFirst = displayIntFirst; }
+    if (m_displayIntFirst)
+        std::cout << getSuccessorName() << " s = " << surfaceArea() << '\n';
+    else // або спочатку виводимо double
+        std::cout << "Value s = " << surfaceArea() << '\n';
+}
 
-    void ShowS(Shape &value)
-    {
-        if (m_displayIntFirst)
-            std::cout << value.getSuccessorName() << " s = " << value.surfaceArea() << '\n';
-        else // або спочатку виводимо double
-            std::cout << "Value s = " << value.surfaceArea() << '\n';
-    }
-};
+inline void Parallelepiped::ShowS(bool m_displayIntFirst)
+{
+    if (m_displayIntFirst)
+        std::cout << getSuccessorName() << " s = " << surfaceArea() << '\n';
+    else // або спочатку виводимо double
+        std::cout << "Value s = " << surfaceArea() << '\n';
+}
+
+inline void Tetrahedron::ShowS(bool m_displayIntFirst)
+{
+    if (m_displayIntFirst)
+        std::cout << getSuccessorName() << " s = " << surfaceArea() << '\n';
+    else // або спочатку виводимо double
+        std::cout << "Value s = " << surfaceArea() << '\n';
+}
+
+inline void Cube::ShowS(bool m_displayIntFirst)
+{
+    if (m_displayIntFirst)
+        std::cout << getSuccessorName() << " s = " << surfaceArea() << '\n';
+    else // або спочатку виводимо double
+        std::cout << "Value s = " << surfaceArea() << '\n';
+}
+
 
 
 int main() {
-    Show show(true);
 
     Cylinder c(3, 5);
-    show.ShowS(c);
+    c.ShowS(true);
 
     Cube cu(3);
-    show.ShowS(cu);
+    cu.ShowS(true);
 
     Tetrahedron t(4);
-    show.ShowS(t);
+    t.ShowS(true);
 
     Parallelepiped p(2, 3, 4);
-    show.ShowS(p);
+    p.ShowS(true);
 
     Sphere s(2);
-    show.ShowS(s);
+    s.ShowS(true);
 
     return 0;
 }
