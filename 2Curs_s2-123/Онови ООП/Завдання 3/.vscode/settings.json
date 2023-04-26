@@ -74,5 +74,6 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp"
-  }
+  },
+  "C_Cpp_Runner.showCompilationTime": false
 }

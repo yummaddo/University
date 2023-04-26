@@ -151,6 +151,13 @@ inline void Cube::ShowS(bool m_displayIntFirst)
         std::cout << "Value s = " << surfaceArea() << '\n';
 }
 
+inline void Cylinder::ShowS(bool m_displayIntFirst)
+{
+    if (m_displayIntFirst)
+        std::cout << getSuccessorName() << " s = " << surfaceArea() << '\n';
+    else // або спочатку виводимо double
+        std::cout << "Value s = " << surfaceArea() << '\n';
+}
 
 
 int main() {
